@@ -1,0 +1,27 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    //Response.StatusCode = 404;
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Erro.</h1>
+<h2 class="text-danger">Ocorreu uma falha ao processar sua requisição. Favor entrar em contato com o administrador do sistema.</h2>
+<br/>
+<br/>
+<p><h4>Erro: @{
+                Write(Model.Exception.Message);
+                //Write(Model.Exception.StackTrace);
+                     } </h4></p>
+
+@*<br />
+<p>
+    <h4>
+        @{
+            Write(Model.Exception.InnerException);
+        }
+    </h4>
+</p>*@
+
+
+

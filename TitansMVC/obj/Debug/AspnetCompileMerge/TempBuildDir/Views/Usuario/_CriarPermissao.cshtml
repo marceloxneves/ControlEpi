@@ -1,0 +1,18 @@
+﻿@using TitansMVC.Controllers
+<table>
+    <tr>
+        <td style="width: 330px">
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("Permissão")
+                    @Html.DropDownList("RoleId", null, "Selecione", new {@class = "form-control", @id = "ddlRoles"})
+                </div>
+            </div>
+        </td>        
+    </tr>
+    <tr>
+        <td>
+            <input id="btnCreatePermissao" class="btn btn-primary" type="button" onclick="adicionarPermissao()" value="Incluir" />
+        </td>
+    </tr>
+</table>

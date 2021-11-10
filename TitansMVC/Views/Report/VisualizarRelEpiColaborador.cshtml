@@ -1,0 +1,47 @@
+﻿@using TitansMVC.Models.Relatorios
+@model IEnumerable<TitansMVC.Models.Relatorios.RelEpiColModel>
+
+@{
+    ViewBag.Title = "VisualizarRelEpiColaborador";
+}
+
+<h2>Visualização de Consulta</h2>
+
+<div class="modal-body">
+    @{
+        ColaboradorEpiFilter filtro = ViewBag.FiltroEpi ?? new ColaboradorEpiFilter() ;
+    }
+    @Html.Hidden("hdEstado", filtro.EstadoEpis)
+    @Html.Hidden("hdColaborador", filtro.ColaboradorId)
+    @Html.Hidden("hdTipoEpi", filtro.TipoEpiId)
+    @Html.Hidden("hdEpi", filtro.EpiId)
+    @Html.Hidden("hdMarca", filtro.Marca)
+    @Html.Hidden("hdSetor", filtro.SetorId)
+    @Html.Hidden("hdCentroCusto", filtro.CentroCustoId)
+    @Html.Hidden("hdDataInicial", filtro.DataInicial)
+    @Html.Hidden("hdDataFinal", filtro.DataFinal)
+    @Html.Hidden("hdAtivos", filtro.Ativos)
+    @Html.Hidden("hdUnidadeNegocio", filtro.UnidadeNegocioId)
+    
+    @Html.Partial("_GridRelEpiColaboradores", Model)
+</div>
+
+<br/>
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Consulta", "EpiColaboradorViewer")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relEpiCol")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelEpiColaborador();
+    });
+
+    function gerarRelatorio() {
+        location.href = '@Url.Action("DownloadReport", "Report")?filtro=' + getEpiColFilterImpressao();
+    }
+</script>

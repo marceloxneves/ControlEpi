@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+<head>
+    <link href="~/favicon.ico" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<title>@ViewBag.Title - HardNet Soluções</title>*@
+    <title>Grupo Titans</title>
+    <meta name="viewport" content="width=device-width" />
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryval", "~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/json")
+    @*@Scripts.Render("~/bundles/validations_pt-br")*@
+    @Scripts.Render("~/bundles/jqueryfixes")
+    @Scripts.Render("~/bundles/mascaras")
+    @Scripts.Render("~/bundles/util")
+    @Scripts.Render("~/bundles/signaturepad")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown").on("show.bs.dropdown", function () {
+                $(this).find(".dropdown-menu").first().stop(true, true).slideDown();
+            });
+
+            // Add slideUp animation to dropdown
+            $(".dropdown").on("hide.bs.dropdown", function () {
+                $(this).find(".dropdown-menu").first().stop(true, true).slideUp();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div><img src="~/images/header.jpg" alt="Logo" class=" img-responsive" style="width: 2000px" /></div>
+    <div class="navbar navbar-default navbar-inverse" style="background-color: #52658c; color: white">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Início", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    @if (User.IsInRole("role_base") || User.IsInRole("role_base_uniforme"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros Base<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @if (User.IsInRole("role_base"))
+                                {
+                                    <li>@Html.ActionLink("EPI's", "Index", "EPI")</li>
+                                    <li class="divider"></li>
+                                }
+                                @if (User.IsInRole("role_base_uniforme"))
+                                {
+                                    <li>@Html.ActionLink("Uniformes", "Index", "Uniforme")</li>
+                                    <li class="divider"></li>
+                                }
+                                <li>@Html.ActionLink("Colaboradores", "Index", "Colaborador")</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("role_auxiliares") || User.IsInRole("role_auxiliares_uniforme"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros Auxiliares<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Setores", "Index", "Setor")</li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Unidades de Negócio", "Index", "Lbc")</li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Centros de Custo", "Index", "CentroCusto")</li>
+                                @*<li class="divider"></li>
+                                <li>@Html.ActionLink("Famílias de EPI", "Index", "FamiliaEpi")</li>*@
+                                <li class="divider"></li>
+                                @if (User.IsInRole("role_auxiliares"))
+                                {
+                                    <li>@Html.ActionLink("Tipos de EPI", "Index", "TipoEpi")</li>
+                                    <li class="divider"></li>
+                                }                                
+                                <li>@Html.ActionLink("Funções", "Index", "Funcao")</li>                                
+                                @if (User.IsInRole("role_auxiliares_uniforme"))
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Tipos de Uniforme", "Index", "TipoUniforme")</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("role_relatorios") || User.IsInRole("role_relatorios_uniforme"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Relatórios<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @if (User.IsInRole("role_relatorios"))
+                                {
+                                    <li>@Html.ActionLink("EPI x Colaborador", "EpiColaboradorViewer", "Report")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Consumo EPI", "ConsumoEpiViewer", "Report")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("EPI Falta", "EpiFaltaViewer", "Report")</li>                                    
+                                }
+                                @if (User.IsInRole("role_relatorios_uniforme"))
+                                {
+                                    if (User.IsInRole("role_relatorios"))
+                                    {
+                                        <li class="divider"></li>
+                                    }
+                                    <li>@Html.ActionLink("Uniforme x Colaborador", "UniformeColaboradorViewer", "Report")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Consumo Uniforme", "ConsumoUniformeViewer", "Report")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Uniforme Falta", "UniformeFaltaViewer", "Report")</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("role_admin") || User.IsInRole("role_master"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administração<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Empresa", "Index", "Empresa")</li>
+                                <li class="divider"></li>
+                                @if (User.IsInRole("role_admin"))
+                                {
+                                    <li>@Html.ActionLink("Configurações", "Index", "Configuracao")</li>
+                                    <li class="divider"></li>
+                                    var empresa = TitansMVC.Utils.Util.GetEmpresa();
+
+                                    @*<li>@Html.ActionLink("Cadastrar Biometria", "Index", "Biometria")</li>
+                                    <li class="divider"></li>*@
+
+                                    <li> @Html.ActionLink("Importar Dados", "Upload", "ImportFromToExcel") </li>
+                                    <li class="divider"></li>
+                                }
+                                <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                                @if (User.IsInRole("role_master"))
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Planos", "Index", "Plano")</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("role_entregaepi") || User.IsInRole("role_entrega_epi_outros"))
+                    {
+                        @*<li>@Html.ActionLink("Entregar EPI's", "Search", "Biometria")</li>*@
+                        <li>@Html.ActionLink("Entregar EPI's", "Search", "Biometria", new { tipoEntrega = "Epi" }, "")</li>
+
+                    }
+                    @if (User.IsInRole("role_entrega_uniforme") || User.IsInRole("role_entrega_uniforme_outros"))
+                    {
+                        <li>@Html.ActionLink("Entregar Uniforme", "Search", "Biometria", new { tipoEntrega = "Uniforme" },"")</li>                       
+                    }
+</ul>
+                
+                <div style="margin-right: 20px">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @{ Html.RenderPartial("_Alerts"); }
+            @RenderBody()
+        </section>
+    </div>
+    <hr />
+
+    <footer>
+        @*<p style="margin-left: 30px;">&copy; @DateTime.Now.Year - HardNet Info</p>*@
+        
+        <div>
+            <div style="display:inline-block; margin-left: 30px; width: 40%">&copy; @DateTime.Now.Year - HardNet Info</div>
+            <div style="display:inline-block; text-align:right; width: 40%; visibility:hidden">1493986340</div>     
+            <div style="display:inline-block; text-align:right; width: 40%; visibility:hidden">versão:@ViewContext.Controller.GetType().Assembly.GetName().Version.Major.@ViewContext.Controller.GetType().Assembly.GetName().Version.Minor</div>     
+        </div>        
+    </footer>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

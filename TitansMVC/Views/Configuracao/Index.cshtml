@@ -1,0 +1,159 @@
+﻿@model TitansMVC.Models.ConfiguracaoModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Configurações do Sistema</h4>
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    
+                    @if (User.IsInRole("role_base"))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarVencCaComAntec, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarVencCaComAntec)
+                                    @Html.ValidationMessageFor(model => model.AvisarVencCaComAntec, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.QtdeDiasAvisoVencCa, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.QtdeDiasAvisoVencCa, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);", @style = "width: 70px" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarVencEpiComAntec, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarVencEpiComAntec)
+                                    @Html.ValidationMessageFor(model => model.AvisarVencEpiComAntec, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.QtdeDiasAvisoVencEpi, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.QtdeDiasAvisoVencEpi, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);", @style = "width: 70px" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarAposVencCa, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarAposVencCa)
+                                    @Html.ValidationMessageFor(model => model.AvisarAposVencCa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarAposVencEpi, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarAposVencEpi)
+                                    @Html.ValidationMessageFor(model => model.AvisarAposVencEpi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BloquearPorTipoEpiUnico, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.BloquearPorTipoEpiUnico)
+                                    @Html.ValidationMessageFor(model => model.BloquearPorTipoEpiUnico, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (User.IsInRole("role_base_uniforme"))
+                    {
+                        @*Uniforme Configuração*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarVencUniformeComAntec, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarVencUniformeComAntec)
+                                    @Html.ValidationMessageFor(model => model.AvisarVencUniformeComAntec, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.QtdeDiasAvisoVencUniforme, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.QtdeDiasAvisoVencUniforme, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);", @style = "width: 70px" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AvisarAposVencUniforme, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.AvisarAposVencUniforme)
+                                    @Html.ValidationMessageFor(model => model.AvisarAposVencUniforme, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BloquearPorTipoUniformeUnico, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.BloquearPorTipoUniformeUnico)
+                                    @Html.ValidationMessageFor(model => model.BloquearPorTipoUniformeUnico, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Voltar à Tela Principal", "Index", "Home")
+</div>

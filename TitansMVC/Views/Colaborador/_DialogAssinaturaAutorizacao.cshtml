@@ -1,0 +1,33 @@
+﻿<div class="modal-dialog" style="width: 400px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Assinatura</h3>
+        </div>
+
+        <div class="modal-body">
+            @*<div class="form-horizontal">*@
+            @*<canvas id="quadro" class="jSignature" style="background: beige;"></canvas>*@
+            <form method="post" action="" class="sigPad">
+                <p class="drawItDesc">Assine na linha desenhada no quadro abaixo:</p>
+                <ul class="sigNav">
+                    <li class="drawIt"><a href="#draw-it">Assinar</a></li>
+                    <li class="clearButton"><a id="limparAssin" href="#clear">Limpar Assinatura</a></li>
+                </ul>
+                <div class="sig sigWrapper">
+                    <div class="typed"></div>
+                    <canvas id="cassinaturaAtual" class="pad" width="198" height="50" style="background: beige"></canvas>
+                    <input type="hidden" name="output" class="output">
+                </div>
+            </form>
+            @*</div>*@
+
+        </div>
+        <div class="modal-footer">
+            <a id="btnAbrirConf" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" href="#conferirAssinatura" onclick="carregarAssinaturas();" title="Abrir tela de autorização de assinatura">
+                Abrir Autorização
+            </a>
+            <button class="btn btn-warning" onclick="limparAssinPegarEpi()" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

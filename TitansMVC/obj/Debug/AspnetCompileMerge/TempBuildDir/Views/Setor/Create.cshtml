@@ -1,0 +1,76 @@
+﻿@model TitansMVC.Models.SetorModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cadastrar Novo Setor</h4>
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome do Setor" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnidadeNegocioId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("LbcId", null, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UnidadeNegocioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr/>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.Obs, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Inserir" title="Inserir novo setor" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/setor")
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        InicializarComponentesSetores();
+    });
+</script>

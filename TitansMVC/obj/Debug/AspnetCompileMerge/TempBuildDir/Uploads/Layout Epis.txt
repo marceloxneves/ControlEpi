@@ -1,0 +1,13 @@
+CAMPO              -     TIPO
+nome               - [varchar max 200]
+marca              - [varchar max 50]
+ca                 - [varchar max 50]
+validade_ca        - [data formato: dd/mm/yyyy]
+cod_epi_fabricante - [varchar max 20]
+cod_epi            - [varchar max 20]
+custo              - [monetário formato ##.###,00]
+obs                - [varchar max 500]
+
+Obs 1:  nome da planilha deve ser o nome da tabela a ser importada (ex: 'epi')
+Obs 2: A ordem dos campos é indiferente
+Obs 3: atualmente apenas disponíveis opções de importação para colaboradores e Epis

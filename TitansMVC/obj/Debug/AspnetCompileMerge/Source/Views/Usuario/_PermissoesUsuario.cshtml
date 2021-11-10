@@ -1,0 +1,34 @@
+﻿@using TitansMVC.Helpers
+
+@model TitansMVC.Models.UsuarioModel
+@if (ViewBag.partialPermission != null && ViewBag.partialPermission)
+{
+    Html.RenderPartial("_Alerts");
+}
+
+@if ((Model != null) && (Model.Permissoes != null) && Model.Permissoes.Any())
+{
+    <br />
+
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th>Descrição</th>
+                <th width="50px"></th>
+            </tr>
+            @foreach (var item in Model.Permissoes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescricaoPermissao)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("RemoverPermissao", "Usuario", new {id = item.Id})" data-ajax='true' data-ajax-update='#permissoes' data-ajax-mode='replace' title="Excluir Registro">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

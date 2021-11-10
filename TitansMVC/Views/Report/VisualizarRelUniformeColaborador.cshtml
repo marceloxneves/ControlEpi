@@ -1,0 +1,47 @@
+﻿@using TitansMVC.Models.Relatorios
+@model IEnumerable<TitansMVC.Models.Relatorios.RelUniformeColModel>
+
+@{
+    ViewBag.Title = "VisualizarRelUniformeColaborador";
+}
+
+<h2>Visualização de Consulta</h2>
+
+<div class="modal-body">
+    @{
+        ColaboradorUniformeFilter filtro = ViewBag.FiltroUniforme ?? new ColaboradorUniformeFilter() ;
+    }
+    @Html.Hidden("hdEstado", filtro.EstadoUniformes)
+    @Html.Hidden("hdColaborador", filtro.ColaboradorId)
+    @Html.Hidden("hdTipoUniforme", filtro.TipoUniformeId)
+    @Html.Hidden("hdUniforme", filtro.UniformeId)
+    @Html.Hidden("hdMarca", filtro.Marca)
+    @Html.Hidden("hdSetor", filtro.SetorId)
+    @Html.Hidden("hdCentroCusto", filtro.CentroCustoId)
+    @Html.Hidden("hdDataInicial", filtro.DataInicial)
+    @Html.Hidden("hdDataFinal", filtro.DataFinal)
+    @Html.Hidden("hdAtivos", filtro.Ativos)
+    @Html.Hidden("hdUnidadeNegocio", filtro.UnidadeNegocioId)
+    
+    @Html.Partial("_GridRelUniformeColaboradores", Model)
+</div>
+
+<br/>
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Consulta", "UniformeColaboradorViewer")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relUniformeCol") 
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelUniformeColaborador();
+    });
+
+    function gerarRelatorioUniforme() {
+        location.href = '@Url.Action("DownloadReportUniforme", "Report")?filtro=' + getUniformeColFilterImpressao();
+    }
+</script>

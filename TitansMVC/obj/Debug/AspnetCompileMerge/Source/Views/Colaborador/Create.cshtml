@@ -1,0 +1,181 @@
+﻿@model TitansMVC.Models.ColaboradorModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Colaborador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cadastrar Novo Colaborador</h4>
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "nome do colaborador" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(model => model.Genero, TitansMVC.Models.Enums.Genero.Masculino, new { id = "radio-male" })
+                                <label for="radio-male" style="font-weight:normal !important;">Masculino &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                @Html.RadioButtonFor(model => model.Genero, TitansMVC.Models.Enums.Genero.Feminino, new { id = "radio-female" })
+                                <label for="radio-female" style="font-weight:normal !important;">Feminino</label>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control", @id = "txtCpf", @placeholder = "CPF" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SetorId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("SetorId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FuncaoId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("FuncaoId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LbcId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("LbcId", null, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LbcId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NumRegEmpresa, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.NumRegEmpresa, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "número de registro na empresa" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataAdmissao, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-admissao" name="DataAdmissao" value="@Model.DataAdmissao" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataNascimento, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-nascimento" name="DataNascimento" value="@Model.DataNascimento" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RecebeuTreinamento, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.RecebeuTreinamento, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @id = "cbRecebeuTreinamento",
+                                   @data_on_text = "Sim",
+                                   @data_off_text = "Não",
+                                   @data_size = "small"
+                               }
+                           })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RecebeuAdvertencia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.RecebeuAdvertencia, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @id = "cbRecebeuAdvertencia",
+                                   @data_on_text = "Sim",
+                                   @data_off_text = "Não",
+                                   @data_size = "small"
+                               }
+                           })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="div-motivo-advertencia" class="form-group" hidden>
+                        @Html.LabelFor(model => model.MotivoAdvertencia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.MotivoAdvertencia, new { htmlAttributes = new { @id = "taMotAdvertencia", @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Foto:</label>
+                        <input type="file" class="filestyle" data-input="false" data-buttontext="Selecione a Foto" onchange=" readImage(this) " id="foto" name="uploadfoto" />
+                        <img id="foto-col" style="width: 80px; height: 100px" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Inserir" title="Inserir novo colaborador" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/colaborador")
+    @Scripts.Render("~/bundles/validacao")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesColaboradores();
+    });
+</script>

@@ -1,0 +1,29 @@
+﻿<table>
+    <tr>
+        <td style="width: 330px">
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("Descrição")
+                    @Html.TextBox("txtMailDescricao", null, new { @class = "form-control text-uppercase", @style = "width: 300px;", @placeholder = "Descrição" })
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("E-mail")
+                    @Html.TextBox("txtMailEmail", null, new { @class = "form-control text-lowercase", @style = "width: 350px;", @placeholder = "E-mail" })
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input id="btnCreateMail" class="btn btn-primary" type="button" onclick=" adicionarEmail() " value="Incluir"/>
+            <span id="loading-mail" class="text-center" style="display: none;">
+                <img src="/images/wait.gif" alt="aguarde" />
+                Aguarde...
+            </span>
+        </td>
+    </tr>
+</table>

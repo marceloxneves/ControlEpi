@@ -1,0 +1,373 @@
+﻿@model TitansMVC.Models.ColaboradorModel
+
+@{
+    ViewBag.Title = "EntregaDeUniforme";
+}
+
+
+
+<div class="container">
+    <h4>Entregar Uniforme</h4>
+
+    <div id="objFing" hidden>
+        <object classid="CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF"
+                height=0 width=0
+                id="objNBioBSP"
+                name="objNBioBSP"></object>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            @if (Model.Foto != null && Model.Foto.Length > 0)
+            {
+                <img id="foto-col" style="width: 80px; height: 100px" src="~/FotoColaborador?id=@Model.Id" alt="foto" />
+            }
+            else
+            {
+                <img id="foto-col" class="oculto" style="width: 80px; height: 100px" src="#" alt="foto" />
+            }
+        </div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.LabelFor(model => Model.Nome)
+                </div>
+                <div class="col-lg-7 col-lg-offset-1">
+                    @Html.DisplayFor(model => Model.Nome, new { })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.LabelFor(model => Model.FuncaoId)
+                </div>
+                <div class="col-lg-7 col-lg-offset-1">
+                    @Html.DisplayFor(model => Model.Funcao.Nome)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.LabelFor(model => Model.SetorId)
+                </div>
+                <div class="col-lg-7 col-lg-offset-1">
+                    @Html.DisplayFor(model => Model.Setor.Nome)
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.LabelFor(model => Model.LbcId)
+                </div>
+                <div class="col-lg-7 col-lg-offset-1">
+                    @Html.DisplayFor(model => Model.Lbc.Fantasia)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @if (Model.SetorId != null)
+    {
+        <div id="inputUniforme">
+            @{ Html.RenderPartial("_EntregarUniforme"); }
+        </div>
+        <br />
+        <br />
+                }
+
+    <div id="uniformes">
+        @{Html.RenderPartial("_UniformesEntregues", Model.Uniformes.Where(e => e.Baixado != null && !e.Baixado.Value).Where(e => e.DataVencimento > DateTime.Now));}
+    </div>
+
+    <div id="baixarUniforme">
+        @{Html.RenderPartial("_BaixarUniforme", Model.Uniformes.Where(e => e.Baixado != null && !e.Baixado.Value).Where(e => e.DataVencimento <= DateTime.Now)); }
+    </div>
+    @using (Html.BeginForm("EntregaDeUniforme", "Colaborador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => Model.Id, new { @id = "txtId" })
+        @Html.HiddenFor(model => model.Biometria, new { @id = "txtRegBimetr" })
+        @Html.HiddenFor(model => model.Ativo, new { @id = "txtAtivo" })        
+        <div>
+            @if (!ViewBag.ValidarBiom)
+            {
+                <div class="row">
+                    <button type="submit" class="btn btn-lg btn-info">Gerar Comprovante!</button>
+
+                    <a href="@Url.Action("Index","Home")" class="btn btn-lg btn-success col-lg-offset-1">Finalizar</a>
+                </div>
+            }
+        </div>
+    }
+
+
+</div>
+
+<div class="modal fade in" id="baixarUniformeEntregue">
+    @Html.Partial("_DialogBaixarUniformeEntregue")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/colaborador")
+    @Scripts.Render("~/bundles/validacao")
+    @Scripts.Render("~/bundles/jszipcompr")
+}
+
+<script type="text/javascript">
+    var comparaBiometria = "False";
+
+    $(document).ready(function () {
+        InicializarEditComponentesColaboradores();
+        inicializarComponentes();
+    });
+
+    function retirarUniforme(id) {
+        var r = confirm("Deseja realmente excluir este registro?");
+        if (r) {
+            $("#uniformes").load('@Url.Action("RetirarUniforme", "Colaborador")', { id: id });
+        } else
+            return false;
+    }
+
+    function inicializarComponentes() {
+        $("#ddlTipoUniforme").change(function () {
+            $("#divJustificativaOutroSetor").hide();
+            if ($("#ddlTipoUniforme option:selected").text() !== "Selecione") {
+                $("#ddlUniformes").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetUniformesTipoSetor")',
+                    dataType: 'json',
+                    data: { idTipo: $("#ddlTipoUniforme").val(), idColab: $("#txtId").val() },
+                    success: function (uniformes) {
+                        $("#ddlUniformes").append('<option value="">Selecione</option>');
+                        $.each(uniformes, function (i, uniforme) {
+                            $("#ddlUniformes").append('<option value="' + uniforme.Value + '">' +
+                                uniforme.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        //alert('Falha ao retornar municipios. ' + ex);
+                    }
+                });
+
+                $("#ddlUniformesOutrSetores").empty();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetUniformesTipoOutrSetores")",
+                    dataType: "json",
+                    data: { idTipo: $("#ddlTipoUniforme").val(), idColab: $("#txtId").val() },
+                    success: function (uniformes) {
+                        $("#ddlUniformesOutrSetores").append('<option value="">Selecione</option>');
+                        $.each(uniformes, function (i, uniforme) {
+                            $("#ddlUniformesOutrSetores").append('<option value="' + uniforme.Value + '">' +
+                                uniforme.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert("Falha ao retornar Uniformes de outros setores.: " + ex);
+                    }
+                });
+                ResetarCombosUniformeSetores();
+            } else {
+                LimparCombosUniformeSetores();
+            }
+            return false;
+        });
+
+        $("#ddlUniformes").change(function () {
+            if ($(this).val() != "") {
+                $("#ddlUniformesOutrSetores").val($("#ddlUniformesOutrSetores option:first").val());
+                $("#divJustificativaOutroSetor").hide();
+            }
+        });
+
+        $("#ddlUniformesOutrSetores").change(function () {
+            if ($(this).val() != "") {
+                $("#ddlUniformes").val($("#ddlUniformes option:first").val());
+                $("#divJustificativaOutroSetor").show();
+                $("#lblJustificativa").show();
+                $("#txtJustificativaUniformeOutroSetor").show();
+
+            } else {
+                $("#divJustificativaOutroSetor").hide();
+            }
+        });
+
+        $(":input").keypress(function (event) {
+            if (event.which == '10' || event.which == '13') {
+                event.preventDefault();
+            }
+        });
+    }
+
+    function entregarUniforme() {
+        if (($("#ddlUniformes").val() === "") && ($("#ddlUniformesOutrSetores").val() === "") || ($("#ddlCentroCusto").val() === "") || ($("#txtQtde").val() === "")) {
+            alert("Todos os campos precisam ser preenchidos para continuar.");
+            return false;
+        }
+        var valOutrosSetores = $("#ddlUniformesOutrSetores").val();
+        if (typeof valOutrosSetores !== 'undefined')
+            if (valOutrosSetores !== "") {
+                if ($("#txtJustificativaUniformeOutroSetor").val().length === 0) {
+                    alert("É obrigatório fornecer uma justificativa para entregar Uniformes de outro setor!");
+                    return false;
+                }
+            }
+        var verBiometria = "@ViewBag.ValidarBiom";
+        if (verBiometria !== "False")
+            //if (!verify()) {
+            //    alert("Falha na verificação biométrica!");
+            //    return false;
+            //}
+            //teste biometria: comentar a parte do 'verify' e decomentar a parte do 'comparar'
+            {
+                comparar();
+                if (comparaBiometria == "False") {
+                    alert("Falha na verificação biométrica!");
+                    return false;
+                }
+            }
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("EntregarUniforme")",
+            dataType: "text",
+            data: { idModel: $("#txtId").val(), uniforme: getUniforme(), dataEntrega: getDateTime(), hasBiometria: verBiometria },            
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+            }
+        }).done(function (result) {
+            $("#uniformes").html(result);
+            ResetarCombosUniformes();
+            $("#divJustificativaOutroSetor").hide();            
+        });
+    }
+
+    function buscarUniforme() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("BuscarUniforme")",
+            dataType: "text",
+            data: { codigoDeBarras: $("#txtCodigoDeBarras").val(), colaboradorId: $("#txtId").val() },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+            }
+        }).done(function (result) {
+            $("#inputUniforme").html(result);
+            $("#txtQtde").val("1");
+            if ($("#ddlUniformesOutrSetores").val() != "") {
+                $("#divJustificativaOutroSetor").show();
+                $("#lblJustificativa").show();
+                $("#txtJustificativaUniformeOutroSetor").show();
+            }
+            else {
+                $("#divJustificativaOutroSetor").hide();
+            }
+            inicializarComponentes();
+        });
+    }
+
+    function BaixarUniforme() {
+        var row_data = [];
+        $("#uniformesvencidos tr").each(function () {
+            row_data.push({ idCol: $(this).find('#hf-id-col').val(), id: $(this).find('#hf-id').val(), baixar: $(this).find('#cb-baixar').is(":checked") });
+        });
+
+        row_data.splice(0, 1);
+
+        $("#baixarUniforme").load('@Url.Action("BaixarUniforme")', { uniformes: $.toJSON(row_data), dataHoraBaixa: getDateTime() });
+    }
+
+    function baixarUniformeEntregue() {
+        if ($("#txtJustificativa").val() !== null && $("#txtJustificativa").val().trim() !== "") {
+            $("#uniformes").load('@Url.Action("BaixarUniformeEntregue")', { idColab: $('#txtId').val(), idUniforme: $("#txtIdUniformeEntregue").val(), just: $("#txtJustificativa").val(), dataHoraBaixa: getDateTime() });
+            $("#txtJustificativa").val("");
+        } else {
+            $("#txtJustificativa").val("");
+            alert("O campo de justificativa deve estar preenchido para baixar um Uniforme não vencido.");
+        }
+    }
+
+    function verify() {
+        $("#IdColaborador").val($("#txtId").val());
+        var err, ret;
+        try // Exception handling
+        {
+            var sucesso = false;
+            DEVICE_FDU01 = 2;
+            DEVICE_FDU11 = 4;
+            DEVICE_AUTO_DETECT = 255;
+            var objDevice = document.objNBioBSP.Device;
+            var objExtraction = document.objNBioBSP.Extraction;
+            var objMatching = document.objNBioBSP.Matching;
+            objDevice.Open(DEVICE_AUTO_DETECT);
+            err = objDevice.ErrorCode; // Get error code
+            if (err != 0) // Device open failed
+            {
+                alert('Device open failed !');
+                return (false);
+            }
+            // Enroll user's fingerprint.
+            var biometriaBD = $("#txtRegBimetr").val();
+            objMatching.verify(biometriaBD);
+
+            err = objExtraction.ErrorCode; // Get error code
+            if (err != 0) // Enroll failed
+            {
+                alert('Capture failed ! Error Number : [' + err + ']');
+                objDevice.Close(DEVICE_AUTO_DETECT);
+                return false;
+            }
+            else // Capture success
+            {
+                //$("#FIRTextData").val(objExtraction.TextEncodeFIR);
+                sucesso = objMatching.MatchingResult == 1 ? true : false;
+                
+            }
+            // Close device. [AUTO_DETECT]
+            objDevice.Close(DEVICE_AUTO_DETECT);
+            objExtraction = 0;
+            objDevice = 0;
+            $("#objFing").html("<object classid='CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF' height=0 width=0 id='objNBioBSP' name='objNBioBSP'></object>");
+            return sucesso;
+        } // end try
+        catch (e) {
+            alert(e.message);
+        }
+    }
+
+    //teste biometria
+    function comparar() {
+        $("#IdColaborador").val($("#txtId").val());
+        var digital = $("#txtRegBimetr").val();
+        comparaBiometria = "False";
+
+        if (digital != "") {
+            $.ajax({
+                async: false,
+                cache: false,
+                url: 'http://localhost:9000/api/public/v1/captura?Digital=' + digital,
+                type: 'GET',
+                success: function (data) {
+                    // alert("Resultado: " + data);
+                    if (data == "OK") {
+                        comparaBiometria = "True";
+                    }
+                },
+                error: function () {
+                    alert('error');
+                }
+            })
+        }
+        else
+            alert("Por favor registre a impress䯠digital.")
+    }
+</script>

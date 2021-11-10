@@ -1,0 +1,26 @@
+﻿<div class="modal-dialog" style="width: 400px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Baixar EPI</h3>
+        </div>
+
+        <div class="modal-body" style="height: 180px">
+            <div class="form-group">
+                @Html.Label("Justificativa", htmlAttributes: new {@class = "control-label col-sm-3"})
+                <div class="col-sm-9 editor-multiline-field">
+                    @Html.TextArea("txtJustificativa", null, new {@class = "form-control"})
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span id="progress" class="text-center" style="display: none;">
+                <img src="/images/wait.gif" alt="wait" />
+                Wait..
+            </span>
+
+            <input id="btnBaixarEpi" class="btn btn-primary" type="button" onclick=" baixarEpiEntregue() " value="Baixar EPI" title="Baixar" data-dismiss="modal" />
+            <button class="btn btn-warning" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

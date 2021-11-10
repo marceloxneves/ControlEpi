@@ -1,0 +1,3 @@
+﻿function InicializarComponentesTipoUniforme() {
+    //$("#cbTipoEpiAtivo").bootstrapSwitch();
+}

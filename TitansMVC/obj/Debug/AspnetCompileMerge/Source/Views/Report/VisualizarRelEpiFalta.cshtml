@@ -1,0 +1,43 @@
+﻿@using TitansMVC.Models.Relatorios
+@model IEnumerable<RelEpiFaltaModel>
+
+@{
+    ViewBag.Title = "VisualizarRelEpiFalta";
+}
+
+<h2>Visualização de Consulta</h2>
+
+<div class="modal-body">
+    @{
+        RelEpiFaltaFilter filtro = ViewBag.FiltroEpi ?? new RelEpiFaltaFilter();
+    }
+    @Html.Hidden("hdEpi", filtro.EpiId)
+    @Html.Hidden("hdDescrEpi", filtro.DescrEpi)
+    @Html.Hidden("hdMarca", filtro.Marca)
+
+    @Html.Partial("_GridRelEpiFalta", Model)
+</div>
+
+<br />
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Consulta", "EpiFaltaViewer")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relEpiCol")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelEpiColaborador();
+    });
+
+    function gerarRelatorio() {
+        location.href = '@Url.Action("DownloadReportEpiFalta", "Report")?filtro=' + getEpiColFilterImpressaoEpiFalta();
+    }
+
+    function gerarRelatorioExcel() {
+        location.href = '@Url.Action("ExportToExcel", "Report")?filtro=' + getEpiColFilterImpressaoEpiFalta();
+    }
+</script>

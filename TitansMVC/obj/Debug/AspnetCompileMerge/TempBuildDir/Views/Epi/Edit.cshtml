@@ -1,0 +1,272 @@
+﻿@using TitansMVC.Models
+@model TitansMVC.Models.EpiModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Epi", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar EPI</h4>
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#estoque" role="tab" data-toggle="tab">Estoque</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+
+                    @Html.HiddenFor(model => model.Id, new { @id = "hd-id-epi" })
+                    @*@Html.HiddenFor(model => model.Ativo)*@
+                    @Html.HiddenFor(model => model.Importado)
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    @Html.HiddenFor(model => model.DataCad)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoEpiId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("TipoEpiId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @id = "txtEpiNome" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Ca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Ca, new { htmlAttributes = new { @class = "form-control", @id = "txtEpiCa", @onkeypress = "return SomenteNumero(event);" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ValidadeCa, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-val-ca" name="ValidadeCa" value="@Model.ValidadeCa" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiFabricante, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiFabricante, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiCliente, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiCliente, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiTitans, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiTitans, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.FamiliaId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("FamiliaId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Custo, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Custo, new { htmlAttributes = new { @class = "form-control", @id = "txtCustoEpi" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnidadeNegocioId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("UnidadeNegocioId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodigoDeBarras, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodigoDeBarras, new { htmlAttributes = new { @class = "form-control  text-uppercase", @id = "txtCodigoDeBarras" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Ativo, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Ativo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="estoque" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+
+                    <div id="lista-estoques">
+                        @*@{ Html.RenderPartial("_Estoques", Model.Estoques.Where(e => e.IdEpi == Model.Id)); }*@
+                        @{ Html.RenderPartial("_Estoques", Model.Estoques); }
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Foto:</label>
+                        <input type="file" class="filestyle" data-input="false" data-buttontext="Selecione a Foto" onchange=" readFotoEpi(this) " id="foto" name="uploadfoto" />
+                        <br />
+                        @if (Model.Foto != null && Model.Foto.Length > 0)
+                        {
+                            <img id="foto-epi" style="width: 200px; height: 200px;" src="~/FotoEpi?id=@Model.Id" alt="foto" />
+                        }
+                        else
+                        {
+                            <img id="foto-epi" class="oculto" style="width: 200px; height: 200px;" src="#" alt="foto" />
+                        }
+                        <br /><br />
+                        <button type="button" name="removefoto" class="btn btn-default" data-input="false" onclick="removeFotoEpi()" id="foto">Remover Imagem </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left: 10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                    <div id="btnFicha" style="display: inline-block">
+                        @Html.Partial("_BtnFicha")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                            }
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+<div class="modal fade in" id="ficha">
+    @Html.Partial("_DialogFicha", Model)
+</div>
+
+<div class="modal fade in" id="altEst">
+    @Html.Partial("_AltEstoque")
+</div>
+
+<div class="modal fade in" id="addEst">
+    @Html.Partial("_AddEstoque")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/epi")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesEpi();
+    });
+
+    function gravarFicha() {
+        var oper;
+        if ($("#btnCriarVisualFicha").text() === "Criar Ficha") {
+            oper = "C";
+        } else {
+            oper = "A";
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GravarFicha")",
+            dataType: "text",
+            data: { ficha: getFichaEpi(), operacao: oper },
+            success: function () {
+                btnVisualizar();
+                alert("Ficha gravada com sucesso!");
+            },
+            error: function (request, status, error) {
+                alert("Erro ao salvar ficha: " + error);
+            }
+        });
+    }
+
+    function excluirFicha() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ExcluirFicha")",
+            dataType: "text",
+            data: { idEpi: $("#hd-id-epi").val() },
+            success: function () {
+                alert("Ficha excluída com sucesso!");
+                limparExclusaoFicha();
+                limparComponentesFicha();
+            },
+            error: function () {
+                alert("Erro ao excluir ficha.");
+            }
+        });
+    }
+
+    function CarregarFicha() {
+        $.ajax({
+            cache: false,
+            url: "@Url.Action("BuscarFicha")",
+            method: 'GET',
+            data: { idEpi: $("#hd-id-epi").val() },
+            success: function (response) {
+                CarregarFichaCompleta(response);
+            },
+            error: function () {
+                alert("Erro ao recuperar ficha.");
+            }
+        });
+    }
+
+    function confirmarAlteracao() {
+        $("#lista-estoques").load('@Url.Action("AlterarEstoque")', { est: getEstoque() });
+    }
+
+    function adicionarQtde() {
+        if (($("#hdIdEstAdd").val() !== "") && ($("#hdIdProdAdd").val() !== "")) {
+            $("#lista-estoques").load('@Url.Action("AddEstoque")', { idEst: $("#hdIdEstAdd").val(), qtde: getQtde() });
+        } else {
+            alert("Os campos 'ID' e 'Adicionar' precisam estar preenchidos para prosseguir.");
+        }
+    }
+</script>

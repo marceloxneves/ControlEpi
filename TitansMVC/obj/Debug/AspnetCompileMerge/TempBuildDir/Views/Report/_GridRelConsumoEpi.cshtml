@@ -1,0 +1,79 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<TitansMVC.Models.Relatorios.RelConsumoEpiModel>
+
+@if (Model != null && Model.Any())
+{
+    <table id="tblRelEpis" class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_epi)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.nome_colaborador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.epi_custo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.qtde_epis)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.custo_total)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_epi)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.nome_colaborador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.epi_custo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qtde_epis)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.custo_total)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <span>Nenhum Resultado para o Registro Pesquisado</span>    
+}
+
+@if (Model != null && Model.Any())
+{
+
+    var Modelo = JsonConvert.SerializeObject(Model);
+
+    <div style="float: right; border: 1px solid #DDDDDD;">Total: R$ @Model.Sum(i => i.custo_total)</div>
+
+    <div>
+        <a id="btnImprimir" data-toggle="modal" @*href="@Url.Action("GerarRelConsumoEpi")"*@
+           onclick=" gerarRelatorio() "
+           title="Gerar Impressão">
+            <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+        </a>
+
+        @*<a id="btnImprimir" data-toggle="modal" href="@Url.Action("GerarRelConsumoEpi")"
+            <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+        </a>*@
+
+        @*<button type="button" onclick="location.href='@Url.Action("Pdf", "Report")'">Teste</button>*@
+
+        <a id = "btnExportarExcel" data - toggle = "modal" @*@href="@Url.Action("GerarRelConsumoEpi")"*@
+            onclick=" gerarRelatorioExcel() "
+            title="Gerar Arquivo Excel">
+            <span class="btn btn-primary" aria-hidden="true">Exportar para Excel</span>
+        </a>
+</div>
+}
+

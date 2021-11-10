@@ -1,0 +1,54 @@
+﻿<br />
+
+@*nao funciona no servidor vbma via ajax*@
+@{  Html.RenderPartial("_Alerts"); }
+
+<div class="row">
+    <div class="col-md-8" style="margin-bottom: 5px">
+        @Html.Label("Código de Barras")
+        @Html.TextBox("txtCodigoDeBarras", null, new { @class = "form-control", @id = "txtCodigoDeBarras", @style = "max-width: 350px" })
+    </div>
+
+    <div class="col-md-9" style="margin-bottom: 30px">
+        <input class="btn btn-primary" type="button" onclick="buscarUniforme()" value='Buscar'>
+    </div>
+
+    <div class="col-md-4" style="margin-bottom: 5px">
+        @Html.Label("Tipo Uniforme")
+
+        @Html.DropDownList("TipoUniformeId", null, "Selecione", new { @class = "form-control", @id = "ddlTipoUniforme", @style = "max-width: 350px", @placeholder = "Selecione" })
+    </div>
+    <div class="col-md-4" style="margin-bottom: 5px">
+        @Html.Label("Uniformes do Setor")
+
+        @Html.DropDownList("UniformeSetorId", null, "Selecione", new { @class = "form-control", @id = "ddlUniformes", @style = "max-width: 350px", @placeholder = "Selecione" })
+    </div>
+
+
+    @if (User.IsInRole("role_entrega_uniforme_outros"))
+    {
+        <div class="col-md-4" style="margin-bottom: 5px">
+            @Html.Label("Outros Uniformes")
+            @Html.DropDownList("UniformeOutrSetoresId", null, "Selecione", new { @class = "form-control", @id = "ddlUniformesOutrSetores", @style = "max-width: 370px", @placeholder = "Selecione" })
+        </div>
+    }
+    <div class="col-md-4" style="margin-bottom: 5px">
+        @Html.Label("Centro de Custo")
+        @Html.DropDownList("CentroCustoId",ViewBag.CentroCustoItems as SelectList, new { @class = "form-control", @id = "ddlCentroCusto", @style = "max-width: 350px" })
+    </div>
+    <div class="col-md-4" style="margin-bottom: 5px">
+        @Html.Label("Quantidade")
+        @Html.TextBox("txtQtde", null, new { @id = "txtQtde", @class = "form-control", onkeypress = "return SomenteNumero(event);", @placeholder = "Qtde", @style = "width: 100px", @Value = "1" })
+    </div>
+    <div id="divJustificativaOutroSetor" class="col-md-4" style="margin-bottom: 5px">
+        @Html.Label("Justificativa", new { @id = "lblJustificativa", @style = "display: none" })
+        @Html.TextBox("txtJust", null, new { @class = "form-control", @placeholder = "Justificativa", @id = "txtJustificativaUniformeOutroSetor", @style = "max-width: 370px; max-height: 85px; display: none" })
+    </div>
+    <div class="col-md-12" style="margin-bottom: 5px; margin-top: 20px;">
+        <input id="btnCreateUniforme" class="btn btn-primary" type="button" onclick="entregarUniforme();" value="Incluir" />
+        <span id="loading" class="text-center" style="display: none;">
+            <img src="/images/wait.gif" alt="aguarde" />
+            Aguarde...
+        </span>
+    </div>
+</div>

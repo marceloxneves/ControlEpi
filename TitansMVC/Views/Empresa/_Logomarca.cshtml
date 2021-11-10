@@ -1,0 +1,12 @@
+﻿@model TitansMVC.Models.EmpresaModel
+
+<div style="border: solid 1px #999; background: white; padding: 10px; display: table;">
+    @if (Model.Logomarca != null)
+    {
+        <img id="logo-empr" src="~/Logomarca?id=@Model.Id" alt="logo" />
+    }
+    else
+    {
+        <img id="logo-empr" src="" alt="logo" />
+    }
+</div>

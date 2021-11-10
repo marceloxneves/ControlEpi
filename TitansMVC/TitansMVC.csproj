@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{27B57031-1623-4374-9876-F92C85337D4B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TitansMVC</RootNamespace>
+    <AssemblyName>TitansMVC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.CrystalReports.Engine.1.0.0\lib\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.Shared.1.0.0\lib\CrystalDecisions.Shared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.Web.1.0.1\lib\CrystalDecisions.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.340.80\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NITGEN.SDK.NBioBSP, Version=1.2.4.0, Culture=neutral, PublicKeyToken=96eee45103d523d1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\dlls Teste\NITGEN.SDK.NBioBSP.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Identity\ApplicationCookieIdentityValidator.cs" />
+    <Compile Include="App_Start\Identity\ApplicationRoleManager.cs" />
+    <Compile Include="App_Start\Identity\ApplicationSignInManager.cs" />
+    <Compile Include="App_Start\Identity\EmailService.cs" />
+    <Compile Include="App_Start\Identity\IdentityConfig.cs" />
+    <Compile Include="App_Start\Identity\SmsService.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Consultas\ConsultaConsumoUniforme.cs" />
+    <Compile Include="Consultas\ConsultaEmpresa.cs" />
+    <Compile Include="Consultas\ConsultaConsumoEpi.cs" />
+    <Compile Include="Consultas\ConsultaFaltaUniforme.cs" />
+    <Compile Include="Consultas\ConsultaFichaUniforme.cs" />
+    <Compile Include="Consultas\ConsultaUniformeCol.cs" />
+    <Compile Include="Consultas\ConsultaEpiCol.cs" />
+    <Compile Include="Consultas\ConsultaFaltaEpi.cs" />
+    <Compile Include="Consultas\ConsultaFichaEpi.cs" />
+    <Compile Include="Context\TitansContext.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AssinaturaController.cs" />
+    <Compile Include="Controllers\AssinaturaEntregaController.cs" />
+    <Compile Include="Controllers\AvisosController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BiometriaController.cs" />
+    <Compile Include="Controllers\CentroCustoController.cs" />
+    <Compile Include="Controllers\ColaboradorController.cs" />
+    <Compile Include="Controllers\ConfiguracaoController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
+    <Compile Include="Controllers\FotoUniformeController.cs" />
+    <Compile Include="Controllers\UniformeController.cs" />
+    <Compile Include="Controllers\EpiController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\FamiliaEpiController.cs" />
+    <Compile Include="Controllers\FiltroLoginController.cs" />
+    <Compile Include="Controllers\FotoColaboradorController.cs" />
+    <Compile Include="Controllers\FotoEpiController.cs" />
+    <Compile Include="Controllers\FuncaoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportFromToExcelController.cs" />
+    <Compile Include="Controllers\LbcController.cs" />
+    <Compile Include="Controllers\LogomarcaLbcController.cs" />
+    <Compile Include="Controllers\LogomarcaController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlanoController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SetorController.cs" />
+    <Compile Include="Controllers\TipoEpiController.cs" />
+    <Compile Include="Controllers\TipoUniformeController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DataSources\dsEpiFalta.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEpiFalta.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSources\dsTitans2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTitans2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EntityConfiguration\CentroCustoConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ColaboradorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ColaboradorImportacaoDuplicadoConfig.cs" />
+    <Compile Include="EntityConfiguration\ConfiguracaoConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EmailConfirmacaoRegistroConfig.cs" />
+    <Compile Include="EntityConfiguration\EmailEmpresaConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EmpresaConfiguration.cs" />
+    <Compile Include="EntityConfiguration\UniformeColaboradorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EpiColaboradorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EstoqueUniformeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FichaUniformeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\UniformeSetorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\UniformeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EpiConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EpiSetorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\EstoqueEpiConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FamiliaEpiConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FichaEpiConfiguration.cs" />
+    <Compile Include="EntityConfiguration\LbcConfiguration.cs" />
+    <Compile Include="EntityConfiguration\MunicipioConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PermissaoUsuarioConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PlanoConfiguration.cs" />
+    <Compile Include="EntityConfiguration\RoleConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FuncaoConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SetorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\TelefoneEmpresaConfiguration.cs" />
+    <Compile Include="EntityConfiguration\TipoUniformeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\TipoEpiConfiguration.cs" />
+    <Compile Include="EntityConfiguration\UfConfiguration.cs" />
+    <Compile Include="EntityConfiguration\UsuarioConfiguration.cs" />
+    <Compile Include="Adapters\EpiColaboradorBaixadoAdapter.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Alert.cs" />
+    <Compile Include="Helpers\DecimalModelBinder.cs" />
+    <Compile Include="Helpers\EnumExtension.cs" />
+    <Compile Include="Helpers\HtmlDropDownExtensions.cs" />
+    <Compile Include="Helpers\HtmlExtension.cs" />
+    <Compile Include="Helpers\JsonExtensions.cs" />
+    <Compile Include="Migrations\201511241841498_Initial.cs" />
+    <Compile Include="Migrations\201511241841498_Initial.Designer.cs">
+      <DependentUpon>201511241841498_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CentroCustoModel.cs" />
+    <Compile Include="Models\Relatorios\ColaboradorUniformeFilter.cs" />
+    <Compile Include="Models\Relatorios\ConsumoUniformeFilter.cs" />
+    <Compile Include="Models\Relatorios\RelConsumoUniformeModel.cs" />
+    <Compile Include="Models\Relatorios\RelUniformeFaltaModel.cs" />
+    <Compile Include="Models\Relatorios\RelFichaUniformeModel.cs" />
+    <Compile Include="Models\Relatorios\RelUniformeFaltaFilter.cs" />
+    <Compile Include="Models\Relatorios\RelUniformeColModel.cs" />
+    <Compile Include="Models\Relatorios\UniformeEntregueFilter.cs" />
+    <Compile Include="Models\UniformeColaboradorModel.cs" />
+    <Compile Include="Models\EstoqueUniforme.cs" />
+    <Compile Include="Models\FichaUniformeModel.cs" />
+    <Compile Include="Models\UniformeModel.cs" />
+    <Compile Include="Models\UniformeSetorModel.cs" />
+    <Compile Include="Models\EstoqueEpi.cs" />
+    <Compile Include="Models\PlanoModel.cs" />
+    <Compile Include="Models\ColaboradorModel.cs" />
+    <Compile Include="Models\ConfiguracaoModel.cs" />
+    <Compile Include="Models\EmailConfirmacaoRegistroModel.cs" />
+    <Compile Include="Models\Enums\Plano.cs" />
+    <Compile Include="Models\Enums\EstadoEpisConsulta.cs" />
+    <Compile Include="Models\Enums\Genero.cs" />
+    <Compile Include="Models\EpiColaboradorModel.cs" />
+    <Compile Include="Models\EpiModel.cs" />
+    <Compile Include="Models\EpiSetorModel.cs" />
+    <Compile Include="Models\FamiliaEpiModel.cs" />
+    <Compile Include="Models\FichaEpiModel.cs" />
+    <Compile Include="Models\Relatorios\ConsumoEpiFilter.cs" />
+    <Compile Include="Models\Relatorios\RelConsumoEpiModel.cs" />
+    <Compile Include="Models\Relatorios\ColaboradorEpiFilter.cs" />
+    <Compile Include="Models\Relatorios\EpiEntregueFilter.cs" />
+    <Compile Include="Models\LbcModel.cs" />
+    <Compile Include="Models\Relatorios\RelEmpresaModel.cs" />
+    <Compile Include="Models\Relatorios\RelEpiColModel.cs" />
+    <Compile Include="Models\Relatorios\RelEpiFaltaFilter.cs" />
+    <Compile Include="Models\Relatorios\RelEpiFaltaModel.cs" />
+    <Compile Include="Models\Relatorios\RelFichaEpiModel.cs" />
+    <Compile Include="Models\FuncaoModel.cs" />
+    <Compile Include="Models\SetorModel.cs" />
+    <Compile Include="Models\TipoUniformeModel.cs" />
+    <Compile Include="Models\TipoEpiModel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Implementations\CentroCustoRepository.cs" />
+    <Compile Include="Repository\Implementations\RelConsumoUniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\RelFichaUniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\RelUniformeFaltaRepository.cs" />
+    <Compile Include="Repository\Implementations\RelUniformeColaboradorRepository.cs" />
+    <Compile Include="Repository\Implementations\UniformeColaboradorRepository.cs" />
+    <Compile Include="Repository\Implementations\EstoqueUniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\FichaUniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\UniformeSetorRepository.cs" />
+    <Compile Include="Repository\Implementations\UniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\EstoqueEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\FuncaoRepository.cs" />
+    <Compile Include="Repository\Implementations\PlanoRepository.cs" />
+    <Compile Include="Repository\Implementations\EmailConfirmacaoRegistroRepository.cs" />
+    <Compile Include="Repository\Implementations\RelConsumoEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\ColaboradorImportadoRepository.cs" />
+    <Compile Include="Repository\Implementations\ColaboradorRepository.cs" />
+    <Compile Include="Repository\Implementations\ConfiguracaoRepository.cs" />
+    <Compile Include="Repository\Implementations\EmailEmpresaRepository.cs" />
+    <Compile Include="Repository\Implementations\EmpresaRepository.cs" />
+    <Compile Include="Repository\Implementations\EpiColaboradorRepository.cs" />
+    <Compile Include="Repository\Implementations\EpiRepository.cs" />
+    <Compile Include="Repository\Implementations\EpiSetorRepository.cs" />
+    <Compile Include="Repository\Implementations\FamiliaEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\FichaEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\LbcRepository.cs" />
+    <Compile Include="Repository\Implementations\MunicipioRepository.cs" />
+    <Compile Include="Repository\Implementations\PermissaoUsuarioRepository.cs" />
+    <Compile Include="Repository\Implementations\RelEmpresaRepository.cs" />
+    <Compile Include="Repository\Implementations\RelEpiColaboradorRepository.cs" />
+    <Compile Include="Repository\Implementations\RelEpiFaltaRepository.cs" />
+    <Compile Include="Repository\Implementations\RelFichaEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\RepositoryBase.cs" />
+    <Compile Include="Repository\Implementations\RoleRepository.cs" />
+    <Compile Include="Repository\Implementations\SetorRepository.cs" />
+    <Compile Include="Repository\Implementations\TelefoneEmpresaRepository.cs" />
+    <Compile Include="Repository\Implementations\TipoUniformeRepository.cs" />
+    <Compile Include="Repository\Implementations\TipoEpiRepository.cs" />
+    <Compile Include="Repository\Implementations\UfRepository.cs" />
+    <Compile Include="Repository\Implementations\UsuarioRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelConsumoUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelUniformeColaboradorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelUniformeFaltaRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelFichaUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IUniformeColaboradorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEstoqueUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFichaUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IUniformeSetorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEstoqueEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFuncaoRepository.cs" />
+    <Compile Include="Repository\Interfaces\IPlanoRepository.cs" />
+    <Compile Include="Repository\Interfaces\ICentroCustoRepository.cs" />
+    <Compile Include="Repository\Interfaces\IColaboradorImportadoRepository.cs" />
+    <Compile Include="Repository\Interfaces\IColaboradorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IConfiguracaoRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEmailConfirmacaoRegistroRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEmailEmpresaRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEmpresaRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEpiColaboradorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IEpiSetorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFamiliaEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IFichaEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\ILbcRepository.cs" />
+    <Compile Include="Repository\Interfaces\IMunicipioRepository.cs" />
+    <Compile Include="Repository\Interfaces\IPermissaoUsuarioRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelEmpresaRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelConsumoEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelEpiColaboradorRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelEpiFaltaRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRelFichaEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRepositoryBase.cs" />
+    <Compile Include="Repository\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Repository\Interfaces\ISetorRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITelefoneEmpresaRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITipoUniformeRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITipoEpiRepository.cs" />
+    <Compile Include="Repository\Interfaces\IUfRepository.cs" />
+    <Compile Include="Repository\Interfaces\IUsuarioRepository.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmailEmpresaModel.cs" />
+    <Compile Include="Models\EmpresaModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MunicipioModel.cs" />
+    <Compile Include="Models\PermissaoUsuarioModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\TelefoneEmpresaModel.cs" />
+    <Compile Include="Models\UfModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Utils\Conversor.cs" />
+    <Compile Include="Utils\Encryptor.cs" />
+    <Compile Include="Utils\ImportarExcel.cs" />
+    <Compile Include="Utils\CrystalReportPdfResult.cs" />
+    <Compile Include="Utils\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap_old.min.css" />
+    <Content Include="Content\imgs\biometric-icon.png" />
+    <Content Include="Content\imgs\Biometric_data-14-512.png" />
+    <Content Include="Content\imgs\colaborador-icon.png" />
+    <Content Include="Content\imgs\forbidden.png" />
+    <Content Include="Content\imgs\iconepi-001.png" />
+    <Content Include="Content\imgs\iconuniforme-001.png" />
+    <Content Include="Content\jquery.signaturepad.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\pen.cur" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\jquery-ui.theme.min.css" />
+    <Content Include="Content\themes\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\themes\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\themes\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\header.jpg" />
+    <Content Include="images\pen.cur" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\TopoResp.jpg" />
+    <Content Include="images\Wait.gif" />
+    <Content Include="Content\bootstrap_old.css.map" />
+    <Content Include="DataSources\dsEpiFalta.xsc">
+      <DependentUpon>dsEpiFalta.xsd</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="DataSources\dsEpiFalta.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEpiFalta.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSources\dsEpiFalta.xss">
+      <DependentUpon>dsEpiFalta.xsd</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="DataSources\dsTitans2.xsc">
+      <DependentUpon>dsTitans2.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSources\dsTitans2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTitans2.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSources\dsTitans2.xss">
+      <DependentUpon>dsTitans2.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\EcoGA-Amazon.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-filestyle.min.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cad-empresa-edit.js" />
+    <Content Include="Scripts\cadastros\cadCentroCusto.js" />
+    <Content Include="Scripts\cadastros\CadColaborador.js" />
+    <Content Include="Scripts\cadastros\CadEmpresa.js" />
+    <Content Include="Scripts\cadastros\CadUniforme.js" />
+    <Content Include="Scripts\cadastros\CadEpi.js" />
+    <Content Include="Scripts\cadastros\cadFamiliaEpi.js" />
+    <Content Include="Scripts\cadastros\cadLbc.js" />
+    <Content Include="Scripts\cadastros\cadPlano.js" />
+    <Content Include="Scripts\cadastros\cadRegistro.js" />
+    <Content Include="Scripts\cadastros\CadSetor.js" />
+    <Content Include="Scripts\cadastros\cadTipoUniforme.js" />
+    <Content Include="Scripts\cadastros\cadTipoEpi.js" />
+    <Content Include="Scripts\cadastros\CadUsuario.js" />
+    <Content Include="Scripts\cadastros\RelUniforme.js" />
+    <Content Include="Scripts\cadastros\RelEpi.js" />
+    <Content Include="Scripts\datepicker-pt-BR.js" />
+    <None Include="Properties\PublishProfiles\RedeHost.pubxml" />
+    <None Include="Properties\PublishProfiles\Vbma.pubxml" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.maskedinput-1.4.1.pack.js" />
+    <Content Include="Scripts\jquery.maskMoney.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.validate.zcustom.pt-br.js" />
+    <Content Include="Scripts\jQueryFixes.js" />
+    <Content Include="Scripts\json.js" />
+    <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SignaturePad\flashcanvas.js" />
+    <Content Include="Scripts\SignaturePad\flashcanvas.swf" />
+    <Content Include="Scripts\SignaturePad\jquery.signaturepad.min.js" />
+    <Content Include="Scripts\util.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\valida-cpf-cnpj.js" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Uploads\add.png" />
+    <Content Include="Uploads\Conferencia_Win_8.png" />
+    <Content Include="Uploads\confr.jpg" />
+    <Content Include="Uploads\Layout Colaboradores.txt" />
+    <Content Include="Uploads\Layout Epis.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Empresa\Create.cshtml" />
+    <Content Include="Views\Empresa\Delete.cshtml" />
+    <Content Include="Views\Empresa\Edit.cshtml" />
+    <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Empresa\_CreateEmail.cshtml" />
+    <Content Include="Views\Empresa\_CreateTelefone.cshtml" />
+    <Content Include="Views\Empresa\_Emails.cshtml" />
+    <Content Include="Views\Empresa\_Telefones.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\_CriarPermissao.cshtml" />
+    <Content Include="Views\Usuario\_PermissoesUsuario.cshtml" />
+    <Content Include="Views\Setor\Index.cshtml" />
+    <Content Include="Views\Setor\Create.cshtml" />
+    <Content Include="Views\Setor\Edit.cshtml" />
+    <Content Include="Views\Setor\Delete.cshtml" />
+    <Content Include="Views\CentroCusto\Index.cshtml" />
+    <Content Include="Views\CentroCusto\Create.cshtml" />
+    <Content Include="Views\CentroCusto\Edit.cshtml" />
+    <Content Include="Views\CentroCusto\Delete.cshtml" />
+    <Content Include="Views\FamiliaEpi\Index.cshtml" />
+    <Content Include="Views\FamiliaEpi\Create.cshtml" />
+    <Content Include="Views\FamiliaEpi\Edit.cshtml" />
+    <Content Include="Views\FamiliaEpi\Delete.cshtml" />
+    <Content Include="Views\Epi\Index.cshtml" />
+    <Content Include="Views\Epi\Create.cshtml" />
+    <Content Include="Views\Epi\Edit.cshtml" />
+    <Content Include="Views\Epi\Delete.cshtml" />
+    <Content Include="Views\Colaborador\Index.cshtml" />
+    <Content Include="Views\Colaborador\Create.cshtml" />
+    <Content Include="Views\Colaborador\Edit.cshtml" />
+    <Content Include="Views\Colaborador\Delete.cshtml" />
+    <Content Include="Views\Lbc\Index.cshtml" />
+    <Content Include="Views\Lbc\Create.cshtml" />
+    <Content Include="Views\Lbc\Edit.cshtml" />
+    <Content Include="Views\Lbc\Delete.cshtml" />
+    <Content Include="Views\Setor\_Epis.cshtml" />
+    <Content Include="Views\Setor\_CriarEpi.cshtml" />
+    <Content Include="Views\Colaborador\_EpisEntregues.cshtml" />
+    <Content Include="Views\Colaborador\_DialogCriarAssinatura.cshtml" />
+    <Content Include="Views\Colaborador\_Assinatura.cshtml" />
+    <Content Include="Views\Avisos\Index.cshtml" />
+    <Content Include="Views\Colaborador\_DialogAssinaturaAutorizacao.cshtml" />
+    <Content Include="Views\Colaborador\_DialogConfAssinatura.cshtml" />
+    <Content Include="Views\Configuracao\Index.cshtml" />
+    <Content Include="Views\Avisos\_EpisCaVencidos.cshtml" />
+    <Content Include="Views\Avisos\_EpisVencidos.cshtml" />
+    <Content Include="Views\Avisos\_EpisCaAVencer.cshtml" />
+    <Content Include="Views\Avisos\_EpisAVencer.cshtml" />
+    <Content Include="Views\Colaborador\_BaixarEpi.cshtml" />
+    <Content Include="Views\Empresa\_Logomarca.cshtml" />
+    <Content Include="Views\Colaborador\_DialogBaixarEpiEntregue.cshtml" />
+    <Content Include="Views\TipoEpi\Index.cshtml" />
+    <Content Include="Views\TipoEpi\Create.cshtml" />
+    <Content Include="Views\TipoEpi\Edit.cshtml" />
+    <Content Include="Views\TipoEpi\Delete.cshtml" />
+    <Content Include="Views\Epi\_DialogFicha.cshtml" />
+    <Content Include="Views\Epi\_BtnFicha.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Errors\Http404.cshtml" />
+    <Content Include="Views\Errors\Http500.cshtml" />
+    <Content Include="Views\Report\_DialogPesqColaborador.cshtml" />
+    <Content Include="Views\Report\_DialogPesqEpi.cshtml" />
+    <Content Include="Views\Report\_DialogRelEpiColaborador.cshtml" />
+    <Content Include="Views\Report\_GridPesqColaboradores.cshtml" />
+    <Content Include="Views\Report\_GridPesqEpis.cshtml" />
+    <Content Include="Views\Report\_GridRelEpiColaboradores.cshtml" />
+    <Content Include="Views\Report\EpiColaboradorViewer.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Colaborador\_EntregarEpi.cshtml" />
+    <Content Include="Views\Report\VisualizarRelEpiColaborador.cshtml" />
+    <Content Include="Views\ImportFromToExcel\Upload.cshtml" />
+    <Content Include="Views\Report\_DialogRelConsumoEpi.cshtml" />
+    <Content Include="Views\Report\_GridRelConsumoEpi.cshtml" />
+    <Content Include="Views\Report\ConsumoEpiViewer.cshtml" />
+    <Content Include="Views\Report\VisualizarRelConsumoEpi.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Plano\Create.cshtml" />
+    <Content Include="Views\Plano\Edit.cshtml" />
+    <Content Include="Views\Plano\Index.cshtml" />
+    <Content Include="Views\Biometria\Index.cshtml" />
+    <Content Include="Views\Epi\_Estoques.cshtml" />
+    <Content Include="Views\Epi\_AltEstoque.cshtml" />
+    <Content Include="Views\Report\EpiFaltaViewer.cshtml" />
+    <Content Include="Views\Report\VisualizarRelEpiFalta.cshtml" />
+    <Content Include="Views\Report\_GridRelEpiFalta.cshtml" />
+    <Content Include="Views\Funcao\Index.cshtml" />
+    <Content Include="Views\Funcao\Create.cshtml" />
+    <Content Include="Views\Funcao\Delete.cshtml" />
+    <Content Include="Views\Funcao\Edit.cshtml" />
+    <Content Include="Views\Home\_EntregarEpi.cshtml" />
+    <Content Include="Views\Biometria\Search.cshtml" />
+    <Content Include="Views\Colaborador\EntregaDeEpi.cshtml" />
+    <Content Include="Views\Biometria\Create.cshtml" />
+    <Content Include="Views\Epi\_AddEstoque.cshtml" />
+    <Content Include="Uploads\ArqModelImpColaboradores.xlsx" />
+    <Content Include="Uploads\Colaborador.xlsx" />
+    <Content Include="Uploads\ConsumoEpi.pdf" />
+    <Content Include="Uploads\Cópia de Colaborador.xlsx" />
+    <Content Include="Uploads\Cópia de unidade negocio.xlsx" />
+    <Content Include="Uploads\Eco G.A.xlsx" />
+    <Content Include="Uploads\EcoG.A.xlsx" />
+    <Content Include="Uploads\ImportarEPI.xlsx" />
+    <Content Include="Uploads\ModeloImpCentroDeCusto.xlsx" />
+    <Content Include="Uploads\ModeloImpEpis %284%29.xlsx" />
+    <Content Include="Uploads\ModeloImpEpis.xlsx" />
+    <Content Include="Uploads\ModeloImpSetores.xlsx" />
+    <Content Include="Uploads\Pasta1.xlsx" />
+    <Content Include="Uploads\TesteImportacao.xlsx" />
+    <Content Include="Uploads\ung.xlsx" />
+    <Content Include="Uploads\unidade negocio.xlsx" />
+    <Content Include="Views\TipoUniforme\Index.cshtml" />
+    <Content Include="Views\TipoUniforme\Create.cshtml" />
+    <Content Include="Views\TipoUniforme\Edit.cshtml" />
+    <Content Include="Views\TipoUniforme\Delete.cshtml" />
+    <Content Include="Views\Uniforme\Index.cshtml" />
+    <Content Include="Views\Uniforme\Create.cshtml" />
+    <Content Include="Views\Uniforme\Edit.cshtml" />
+    <Content Include="Views\Uniforme\Delete.cshtml" />
+    <Content Include="Views\Uniforme\_AltEstoque.cshtml" />
+    <Content Include="Views\Uniforme\_BtnFicha.cshtml" />
+    <Content Include="Views\Uniforme\_DialogFicha.cshtml" />
+    <Content Include="Views\Uniforme\_Estoques.cshtml" />
+    <Content Include="Views\Uniforme\_AddEstoque.cshtml" />
+    <Content Include="Views\Setor\_CriarUniforme.cshtml" />
+    <Content Include="Views\Setor\_Uniformes.cshtml" />
+    <Content Include="Views\Colaborador\_BaixarUniforme.cshtml" />
+    <Content Include="Views\Colaborador\_DialogBaixarUniformeEntregue.cshtml" />
+    <Content Include="Views\Colaborador\_EntregarUniforme.cshtml" />
+    <Content Include="Views\Colaborador\_UniformesEntregues.cshtml" />
+    <Content Include="Views\Colaborador\EntregaDeUniforme.cshtml" />
+    <Content Include="Views\Report\_DialogPesqUniforme.cshtml" />
+    <Content Include="Views\Report\_DialogRelConsumoUniforme.cshtml" />
+    <Content Include="Views\Report\_DialogRelUniformeColaborador.cshtml" />
+    <Content Include="Views\Report\_GridPesqUniforme.cshtml" />
+    <Content Include="Views\Report\_GridRelConsumoUniforme.cshtml" />
+    <Content Include="Views\Report\_GridRelUniformeColaboradores.cshtml" />
+    <Content Include="Views\Report\_GridRelUniformeFalta.cshtml" />
+    <Content Include="Views\Report\ConsumoUniformeViewer.cshtml" />
+    <Content Include="Views\Report\UniformeColaboradorViewer.cshtml" />
+    <Content Include="Views\Report\UniformeFaltaViewer.cshtml" />
+    <Content Include="Views\Report\VisualizarRelConsumoUniforme.cshtml" />
+    <Content Include="Views\Report\VisualizarRelUniformeColaborador.cshtml" />
+    <Content Include="Views\Report\VisualizarRelUniformeFalta.cshtml" />
+    <Content Include="Views\Avisos\_UniformesAVencer.cshtml" />
+    <Content Include="Views\Avisos\_UniformesVencidos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="test\" />
+    <Folder Include="Views\FiltroLogin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511241841498_Initial.resx">
+      <DependentUpon>201511241841498_Initial.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Reports\ColaboradorEpiDetails.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Reports\ConsumoEpi.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\EpiColaboradorSint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\EpiFalta.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\EpiFicha.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ConsumoUniforme.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\UniformeColaboradorSint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Reports\UniformeFalta.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\UniformeFicha.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ColaboradorUniformeDetails.rdlc">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NBioBSPCOMLib">
+      <Guid>{A4B390F0-7679-46BD-80ED-82366FCF023D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

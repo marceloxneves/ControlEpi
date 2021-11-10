@@ -1,0 +1,137 @@
+﻿@model TitansMVC.Models.UniformeModel
+
+<div class="modal-dialog" style="width: 800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 align="center" class="modal-title">Ficha Uniforme</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div>
+                        @Html.Hidden("hdId")
+                        @Html.Hidden("hdIdUniforme")
+                        <table class="table table-bordered">
+                            <tr>
+                                <td style="padding-right: 10px; vertical-align: central">
+                                    @Html.Label("Produto:")<br/>
+                                    @Html.TextBox("txtNomeUniformeDial", null, new { @style="width: 300px", @readonly="true"})
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="vertical-align: top">
+                                    @Html.Label("Descrição do Equipamento:")
+                                    <div class="editor-multiline-field" style="width: 450px">
+                                        @Html.TextArea("txtDescrEquip", new { @maxlength="500", @style = "width: 410px; max-width: 450px; height: 100px"})
+                                    </div>
+                                </td>
+                                <td style="padding: initial">
+                                    <table class="table table-bordered" style="margin: initial;">
+                                        <tr>
+                                            <td>
+                                                @Html.Label("Revisado em:")
+                                                <div>
+                                                    <input type="text" id="datepicker-rev" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.Label("Foto do Equipamento:", new {@style = "display: inherit;"})
+                                                <canvas id="canvas-foto-ficha" style="width: 200px; height: 200px"></canvas>                                                
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="vertical-align: top">
+                                    <div class="box-inline">
+                                        <div style="padding-right: 100px">
+                                            @Html.Label("Número de Identificação:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtNumIdent", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @Html.Label("Fabricante / Fornecedor:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtFabrForn", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="vertical-align: top">
+                                    <div class="box-inline">
+                                        <div style="padding-right: 100px">
+                                            @Html.Label("Peças de Reposição:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtPcsRepo", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @Html.Label("Forma de Higienização:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtFormHig", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="vertical-align: top">
+                                    <div class="box-inline">
+                                        <div style="padding-right: 100px">
+                                            @Html.Label("Finalidade / Área de Aplicação:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtFinalidade", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @Html.Label("Observações:")
+                                            <div class="editor-multiline-field">
+                                                @Html.TextArea("txtObs", new { @maxlength = "500", @style = "width: 300px; max-width: 300px; height: 100px" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Label("Aprovado Por:")
+                                    @Html.TextBox("txtAprovadoPor", null, new {@style = "width: 100%"})
+                                </td>
+                                <td>
+                                    @Html.Label("Registro:")
+                                    @Html.TextBox("txtRegistro", null, new {@style = "width: 100%"})
+                                </td>
+                                <td>
+                                    @Html.Label("Área:")
+                                    @Html.TextBox("txtArea", null, new {@style = "width: 100%"})
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a id="btnGravar" onclick=" gravarFicha(); " class="btn btn-info btn-lg" title="Gravar" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                </a>
+                <a id="btnImprimir" href="@Url.Action("ImprimirFicha", "Uniforme", new {idUniforme = Model.Id})" class="btn btn-info btn-lg" title="Imprimir Ficha">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+                <a id="btnFechar" class="btn btn-warning btn-lg" title="Fechar" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>                
+            </div>
+        </div>
+    </div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/uniforme")
+}

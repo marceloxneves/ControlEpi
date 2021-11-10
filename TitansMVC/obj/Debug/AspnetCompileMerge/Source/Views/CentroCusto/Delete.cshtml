@@ -1,0 +1,30 @@
+﻿@model TitansMVC.Models.CentroCustoModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Confirma Exclusão deste registro?</h3>
+<div>
+    <h4>Centro de Custo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" title="Excluir o registro (operação definitiva)" /> |
+            @Html.ActionLink("Voltar à Tela de Pesquisa", "Index", null, new { @class = "btn btn-default", title = "Voltar à tela de pesquisa sem excluir o registro." })
+        </div>
+    }
+</div>

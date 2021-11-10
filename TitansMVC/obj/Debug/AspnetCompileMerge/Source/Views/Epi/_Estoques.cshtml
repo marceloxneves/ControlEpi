@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TitansMVC.Models.EstoqueEpi>
+
+@if (Model != null && Model.Any())
+{
+    <h4>Estoques para este produto</h4>
+
+    <div class="panel panel-default">
+        
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th style="text-align: center; width: 200px;">
+
+                    @Html.DisplayNameFor(model => model.Qtde)
+                </th>
+                <th style="text-align: center; width: 200px;">
+                    @Html.DisplayNameFor(model => model.QtdeMin)
+                </th>
+                <th style="text-align: center; width: 200px;">
+                    @Html.DisplayNameFor(model => model.QtdeMax)
+                </th>
+                <th style="width: 50px"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{ var qtde = !(item.Qtde == null || item.Qtde == 0) ? item.Qtde.ToString("####") : "0"; }
+                    <td style="text-align: center">
+                        @*@Html.DisplayFor(modelItem => item.Qtde.Value.ToString("####"))*@
+                        @Html.DisplayFor(modelItem => qtde)
+                    </td>
+
+                    @{ var qtdeMin = !(item.QtdeMin == null || item.QtdeMin == 0) ? item.QtdeMin.ToString("####") : "0"; }
+                    <td style="text-align: center">
+                        @*@Html.DisplayFor(modelItem => item.QtdeMin)*@
+                        @Html.DisplayFor(modelItem => qtdeMin)
+                    </td>
+
+                    @{ var qtdeMax = !(item.QtdeMax == null || item.QtdeMax == 0) ? item.QtdeMax.ToString("####") : "0"; }
+                    <td style="text-align: center">
+                        @*@Html.DisplayFor(modelItem => item.QtdeMax)*@
+                        @Html.DisplayFor(modelItem => qtdeMax)
+                    </td>
+                    <td style="text-align: center">
+                        @*<a href="@Url.Action("Edit", "Epi", new {id = item.Id})" title="Alterar Registro"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>*@
+                        <a href="#altEst" onclick="carrCompDialogAltEstoque(itemest={ idEst: @item.Id , idProd: @item.IdEpi , qtde: @item.Qtde.ToString().Replace(",", ".") , qtdeMin: @item.QtdeMin.ToString().Replace(",", ".") , qtdeMax: @item.QtdeMax.ToString().Replace(",", ".") })" data-toggle="modal" title="Alterar Estoque">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a> | 
+                        <a href="#addEst" onclick="carrCompDialogAddEstoque(itemest={ idEst: @item.Id , idProd: @item.IdEpi})" data-toggle="modal" title="Adicionar Estoque">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                        }
+        </table>
+        
+    </div>
+                        }
+
+

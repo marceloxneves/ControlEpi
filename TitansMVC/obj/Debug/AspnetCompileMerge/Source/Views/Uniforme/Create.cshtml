@@ -1,0 +1,155 @@
+﻿@model TitansMVC.Models.UniformeModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Uniforme", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cadastrar Novo Uniforme</h4>
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoUniformeId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("TipoUniformeId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodUniformeFabricante, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodUniformeFabricante, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodUniformeFabricante, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodUniformeCliente, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodUniformeCliente, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodUniformeCliente, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodUniformeTitans, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodUniformeTitans, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodUniformeTitans, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Custo, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Custo, new { htmlAttributes = new { @class = "form-control", @id = "txtCustoUniforme" } })
+                            @Html.ValidationMessageFor(model => model.Custo, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnidadeNegocioId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("UnidadeNegocioId", null, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UnidadeNegocioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodigoDeBarras, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodigoDeBarras, new { htmlAttributes = new { @class = "form-control  text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodigoDeBarras, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control  text-uppercase" } })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Foto:</label>
+                        <input type="file" class="filestyle" data-input="false" data-buttontext="Selecione a Foto" onchange=" readFotoUniforme(this) " id="foto" name="uploadfoto" />
+                        <br />
+                        <img id="foto-uniforme" style="width: 200px; height: 200px;" />
+                        <br /><br />
+                        <button type="button" name="removefoto" class="btn btn-default" data-input="false" onclick="removeFotoUniforme()" id="foto">Remover Imagem </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Inserir" title="Inserir novo Uniforme" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/uniforme")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesUniforme();
+    });
+</script>

@@ -1,0 +1,200 @@
+﻿@model TitansMVC.Models.LbcModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Lbc", null, FormMethod.Post, new { id = "lbcEditForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Empresa</h4>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#dados-endereco" role="tab" data-toggle="tab">Dados Endereço</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id, new { id = "model-id" })
+                    @Html.HiddenFor(model => model.Ativo)
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    @Html.HiddenFor(model => model.DataCad)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Razão Social" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Fantasia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Fantasia, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome Fantasia" } })
+                            @Html.ValidationMessageFor(model => model.Fantasia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cnpj, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cnpj, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);", @placeholder = "CNPJ" } })
+                            @Html.ValidationMessageFor(model => model.Cnpj, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InscrEst, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.InscrEst, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inscrição Estadual" } })
+                            @Html.ValidationMessageFor(model => model.InscrEst, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InscrMun, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.InscrMun, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inscrição Municipal" } })
+                            @Html.ValidationMessageFor(model => model.InscrMun, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cnae, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cnae, new { htmlAttributes = new { @class = "form-control", @placeholder = "CNAE" } })
+                            @Html.ValidationMessageFor(model => model.Cnae, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control text-lowercase", @placeholder = "URL" } })
+                            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dados-endereco" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndEndereco, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndEndereco, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome da rua, avenida, etc..." } })
+                            @Html.ValidationMessageFor(model => model.EndEndereco, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndNumero, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndNumero, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);", @placeholder = "Número" } })
+                            @Html.ValidationMessageFor(model => model.EndNumero, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndComplemento, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndComplemento, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Complemento" } })
+                            @Html.ValidationMessageFor(model => model.EndComplemento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndBairro, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndBairro, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Bairro" } })
+                            @Html.ValidationMessageFor(model => model.EndBairro, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndCep, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndCep, new { htmlAttributes = new { @class = "form-control", @id = "txtCep", @placeholder = "CEP" } })
+                            @Html.ValidationMessageFor(model => model.EndCep, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SiglaUf, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("SiglaUf", null, String.Empty, new { @class = "form-control", @id = "ddlUfEmpr" })
+                            @Html.ValidationMessageFor(model => model.SiglaUf, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Municipio, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("MunicipioId", null, String.Empty, new { @class = "form-control", @id = "ddlMunicipioEmpr" })
+                            @Html.ValidationMessageFor(model => model.MunicipioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />                
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Logomarca:</label>
+
+                        <input type="file" name="uploadlogolbc" class="filestyle" data-input="false" data-buttontext="Selecione a Imagem" onchange=" readLogoLbcImage(this) " id="logolbc" />
+                        <br />
+                        @if (Model.Logomarca != null && Model.Logomarca.Length > 0)
+                        {
+                            <img id="logo-lbc" style="width: 100px; height: 100px" src="~/LogomarcaLbc?id=@Model.Id" alt="logolbc" />
+                        }
+                        else
+                        {
+                            <img id="logo-lbc" style="width: 100px; height: 100px" src="#" alt="logolbc" />
+                        }
+                        <br /><br />
+                        <button type="button" name="removelogo" class="btn btn-default" data-input="false" onclick="removeLogoLbc()" id="logolbc">Remover Imagem </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+                            }
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/lbc")
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        InicializarComponentesLbc();
+    });
+</script>

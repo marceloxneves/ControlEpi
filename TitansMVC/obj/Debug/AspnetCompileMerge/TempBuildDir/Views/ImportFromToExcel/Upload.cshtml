@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>Importação de Arquivo Excel</h2>
+<div>
+    @using (Html.BeginForm("Upload", "ImportFromToExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-group">
+            <input type="file" name="uploadFile" id="fileUpload" class="file">
+            <div class="input-group col-xs-12">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                <input type="text" class="form-control input-lg" style="max-width: 100%;" disabled placeholder="Escolher Arquivo">
+                <span class="input-group-btn ">
+                    <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Procurar</button>
+                </span>
+            </div>
+        </div>
+
+        @*<input id="fileUpload" name="uploadFile" class="btn btn-default" type="file" title="Selecione o arquivo .xls ou .xlsx a ser importado" /><br />*@
+        <p>
+            <button type="submit" onclick="ativarProgress();"  class="btn btn-lg btn-success">
+                <span class="glyphicon glyphicon-ok" ></span> Importar
+            </button>
+            <button type="reset"  class="btn btn-lg btn-danger">
+                <span class="glyphicon glyphicon-remove"></span> Cancelar
+            </button>
+        </p>
+
+        @*<input class="btn btn-default" type="submit" value="Importar" title="confirmar a importação" onclick="ativarProgress();" /> @*onclick=" return CheckFileName(); "*@
+        
+        <span id="loading" class="text-center" style="display: none;">
+            <img src="/images/wait.gif" alt="aguarde" />
+            Aguarde...
+        </span>
+    }
+</div>
+
+@*CheckFileName(); A simple js function to check the file extension… To be added in Content2 of your Content Place holder…*@
+<script type="text/javascript">
+
+    $(document).on('click', '.browse', function () {
+        var file = $(this).parent().parent().parent().find('.file');
+        file.trigger('click');
+    });
+    $(document).on('change', '.file', function () {
+        if(CheckFileName())
+            $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+    });
+
+    function CheckFileName() {
+        var fileName = document.getElementById("fileUpload").value;
+        //debugger;
+        if (fileName == "") {
+            alert("Escolha um arquivo com uma extensão válida (.xls / .xlsx)");
+            return false;
+        }
+        else if (fileName.split(".")[1].toUpperCase() == "XLS" || fileName.split(".")[1].toUpperCase() == "XLSX")
+            return true;
+        else {
+            alert("Arquivos com a extensão ." + fileName.split(".")[1] + " são inválidos para este propósito, favor escolher um arquivo com uma extensão válida (.xls / .xlsx)");
+            return false;
+        }
+    }
+
+    function ativarProgress() {
+        $('#loading').show();
+    }
+</script>
+

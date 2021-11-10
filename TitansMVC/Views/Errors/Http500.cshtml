@@ -1,0 +1,24 @@
+﻿@model System.Exception
+@{
+    //Response.StatusCode = 404;
+    ViewBag.Title = "Error";
+}
+<h1 class="text-danger">Erro - Falha Interna no Servidor.</h1>
+<h2 class="text-danger">Ocorreu uma falha ao processar sua requisição. Favor entrar em contato com o administrador do sistema.</h2>
+
+<p>
+    <h4>
+        Erro: @{
+            Write(Model.Message);
+        }
+    </h4>
+</p>
+
+<p>
+    <h4>
+        @{
+            Write(Model.InnerException);
+        }
+    </h4>
+</p>
+

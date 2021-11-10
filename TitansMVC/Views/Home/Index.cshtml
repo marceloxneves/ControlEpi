@@ -1,0 +1,268 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron">
+        <h1>
+            HardNet Info <br /> Sistemas Inteligentes!
+        </h1>
+        <p class="lead">Soluções que agilizam e facilitam seu trabalho.</p>
+        <p>
+            <a href="http://www.hardnetinformatica.com.br/" class="btn btn-primary btn-lg" target="_blank">Saiba Mais &raquo;</a>
+        </p>
+    </div>*@
+
+<div class="row">
+    @if (Request.IsAuthenticated && (User.IsInRole("role_base") || User.IsInRole("role_base_uniforme")))
+    {
+        <div class="col-md-4">
+            <h2>Avisos</h2>
+
+            @if (ViewBag.PossuiAvisos)
+            {
+                <p>
+                    Clique aqui para visualizar os avisos.
+                </p>
+                <p>
+                    <a class="btn btn-danger" href="@Url.Action("Index", "Avisos")">Ver Avisos &raquo;</a>
+                </p>
+            }
+            else
+            {
+                <p>
+                    Nenhum aviso para visualizar.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Avisos")">Ver Avisos &raquo;</a>
+                </p>
+            }
+
+        </div>
+    }
+    @if (User.IsInRole("role_entregaepi") || User.IsInRole("role_entrega_epi_outros"))
+    {
+        <div class="col-md-4">
+            <h2>EPI's</h2>
+            <p>
+                Clique aqui para entregar EPI's ao Colaborador.
+            </p>
+            <p>
+                @*<a class="btn btn-success" href="@Url.Action("Search", "Biometria")">Entregar EPI</a>*@
+                <a class="btn btn-success" href="@Url.Action("Search", "Biometria",  new { tipoEntrega = "Epi"})">Entregar EPI</a>
+            </p>
+        </div>
+    }
+    @if (User.IsInRole("role_entrega_uniforme") || User.IsInRole("role_entrega_uniforme_outros"))
+    {
+        <div class="col-md-4">
+            <h2>Uniformes</h2>
+            <p>
+                Clique aqui para entregar Uniformes ao Colaborador.
+            </p>
+            <p>
+                @*<a class="btn btn-success" href="@Url.Action("Search", "Biometria")">Entregar Uniforme</a>*@
+                <a class="btn btn-success" href="@Url.Action("Search", "Biometria",  new { tipoEntrega = "Uniforme"})">Entregar Uniforme</a>
+            </p>
+        </div>
+    }
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Entregar EPI</h4>
+            </div>
+            <div class="modal-body">
+                @{ Html.RenderPartial("_EntregarEpi"); }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //Deprecated
+        @*$(window).unload(function () {
+            $.ajax({
+                url: "@Url.Action("AtualizarfAssinaturaPendente")",
+                data: { id: $("#txtId").val() },
+                async: false
+            });
+        });*@
+    $(window).on("unload", function () {
+        $.ajax({
+            url: "@Url.Action("AtualizarAssinaturaPendente")",
+            data: { id: $("#txtId").val() },
+            async: false
+        });
+    });
+
+    $("#ddlTipoEpi").change(function () {
+        if ($("#ddlTipoEpi option:selected").text() !== "Selecione") {
+            $("#ddlEpis").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetEpisTipoSetor","Colaborador")',
+                dataType: 'json',
+                data: { idTipo: $("#ddlTipoEpi").val(), idColab: $("#txtId").val() },
+                success: function (epis) {
+                    $("#ddlEpis").append('<option value="">Selecione</option>');
+                    $.each(epis, function (i, epi) {
+                        $("#ddlEpis").append('<option value="' + epi.Value + '">' +
+                            epi.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    //alert('Falha ao retornar municipios. ' + ex);
+                }
+            });
+
+            $("#ddlEpisOutrSetores").empty();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetEpisTipoOutrSetores", "Colaborador")",
+                dataType: "json",
+                data: { idTipo: $("#ddlTipoEpi").val(), idColab: $("#txtId").val() },
+                success: function (epis) {
+                    $("#ddlEpisOutrSetores").append('<option value="">Selecione</option>');
+                    $.each(epis, function (i, epi) {
+                        $("#ddlEpisOutrSetores").append('<option value="' + epi.Value + '">' +
+                            epi.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert("Falha ao retornar EPI's de outros setores.: " + ex);
+                }
+            });
+            ResetarCombosEpiSetores();
+        } else {
+            LimparCombosEpiSetores();
+        }
+        return false;
+    });
+
+    $(":input").keypress(function (event) {
+        if (event.which == '10' || event.which == '13') {
+            event.preventDefault();
+        }
+    });
+    //});
+
+    function entregarEpi() {
+        if (($("#ddlEpis").val() === "") && ($("#ddlEpisOutrSetores").val() === "") || ($("#ddlCentroCusto").val() === "") || ($("#txtQtde").val() === "")) {
+            alert("Todos os campos precisam ser preenchidos para continuar.");
+        } else {
+            //trocado para codigo debaixo porcentagem conta da imagem decodeURI espera NavigatorOnLine funcionar
+            //no primeiro codigo
+            @*$("#epis").load('@Url.Action("EntregarEpi")', { idModel: $("#txtId").val(), epi: getEpi(), dataEntrega: getDateTime(), base64: getAssinaturaAtual() });*@
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EntregarEpi", "Colaborador")",
+                dataType: "text",
+                //data: { idModel: $("#txtId").val(), epi: getEpi(), dataEntrega: getDateTime(), base64: getAssinaturaAtual() },
+                data: { idModel: $("#txtId").val(), epi: getEpi(), dataEntrega: getDateTime() },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                complete: function () {
+                    $("#loading").hide();
+                },
+                success: function (response) {
+                }
+            }).done(function (result) {
+                $("#epis").html(result);
+                ResetarCombosEpis();
+                //var form = $("#colabEditForm");
+                //form.submit();
+            });
+        }
+    }
+
+    function buscarEPI() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("BuscarEpi", "Colaborador")",
+            dataType: "text",
+            data: { codigoDeBarras: $("#txtCodigoDeBarras").val(), colaboradorId: $("#txtId").val() },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+            }
+        }).done(function (result) {
+            $("#inputEpi").html(result);
+            $("#txtQtde").val("1");
+
+            if ($("#ddlEpisOutrSetores").val() != "") {
+                $("#txtJustificativaEpiOutroSetor").show();
+                $("#lblJustificativa").show();
+            }
+            else {
+                $("#txtJustificativaEpiOutroSetor").hide();
+                $("#lblJustificativa").hide();
+            }
+        });
+    }
+
+    function verify() {
+        $("#IdColaborador").val($("#txtId").val());
+        var err, ret;
+        try // Exception handling
+        {
+            DEVICE_FDU01 = 2;
+            DEVICE_FDU11 = 4;
+            DEVICE_AUTO_DETECT = 255;
+            var objDevice = document.objNBioBSP.Device;
+            var objExtraction = document.objNBioBSP.Extraction;
+            var objMatching = document.objNBioBSP.Matching;
+            objDevice.Open(DEVICE_AUTO_DETECT);
+            err = objDevice.ErrorCode; // Get error code
+            if (err != 0) // Device open failed
+            {
+                alert('Device open failed !');
+                return (false);
+            }
+            // Enroll user's fingerprint.
+            var biometriaBD = $("#txtRegBimetr").val();
+            objMatching.verify(biometriaBD);
+
+            err = objExtraction.ErrorCode; // Get error code
+            if (err != 0) // Enroll failed
+            {
+                alert('Capture failed ! Error Number : [' + err + ']');
+                objDevice.Close(DEVICE_AUTO_DETECT);
+            }
+            else // Capture success
+            {
+                //$("#FIRTextData").val(objExtraction.TextEncodeFIR);
+
+                if (objMatching.MatchingResult == 1) {
+                    liberarEpi();
+                } else {
+                    bloquearEpi();
+                }
+            }
+            // Close device. [AUTO_DETECT]
+            objDevice.Close(DEVICE_AUTO_DETECT);
+            objExtraction = 0;
+            objDevice = 0;
+
+            $("#objFing").html("<object classid='CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF' height=0 width=0 id='objNBioBSP' name='objNBioBSP'></object>");
+        } // end try
+        catch (e) {
+            alert(e.message);
+        }
+    }
+</script>

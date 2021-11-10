@@ -1,0 +1,63 @@
+﻿@using TitansMVC.Helpers
+@model IEnumerable<TitansMVC.Models.UniformeColaboradorModel>
+
+
+@if (ViewBag.bloqTipoUnico != null && ViewBag.bloqTipoUnico)
+{
+    Html.RenderPartial("_Alerts");
+}
+
+@if (Model != null && Model.Any())
+{
+    <h4>Uniforme Entregues</h4>
+    @Html.Hidden("txtIdUniformeEntregue")
+
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th width="250px" class="colHideSmart">Data de Entrega</th>
+                <th width="170px" class="colHideSmart" style="text-align: center">Validade (em dias)</th>
+                <th width="250px">Data de Vencimento</th>
+                <th width="250px">Justificativa</th>
+                <th width="250px">Nome Fantasia</th>
+                <th width="70px"></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeUniforme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td class="colHideSmart">
+                        @Html.DisplayFor(modelItem => item.DataEntrega)
+                    </td>
+                    <td class="colHideSmart" style="text-align: center">
+                        @Html.DisplayFor(modelItem => item.ValidadeEmDias)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataVencimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JustificativaUniformeOutroSetor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadeNogocio.Fantasia)
+                    </td>
+                    <td style="text-align: center">
+                        <a style="padding-right: 10px" onclick="retirarUniforme(@item.Id)" href="#uniformes" title="Excluir Registro">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                        <a href="#baixarUniformeEntregue" onclick="guardarIdTempUniforme(@item.Id)" data-toggle="modal" title="Baixar Uniforme">
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

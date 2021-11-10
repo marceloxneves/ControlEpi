@@ -1,0 +1,43 @@
+﻿@using TitansMVC.Models.Relatorios
+@model IEnumerable<RelUniformeFaltaModel>
+
+@{
+    ViewBag.Title = "VisualizarRelUniformeFalta";
+}
+
+<h2>Visualização de Consulta</h2>
+
+<div class="modal-body">
+    @{
+        RelUniformeFaltaFilter filtro = ViewBag.FiltroUniforme ?? new RelUniformeFaltaFilter();
+    }
+    @Html.Hidden("hdUniforme", filtro.UniformeId)
+    @Html.Hidden("hdDescrUniforme", filtro.DescrUniforme)
+    @Html.Hidden("hdMarca", filtro.Marca)
+
+    @Html.Partial("_GridRelUniformeFalta", Model)
+</div>
+
+<br />
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Consulta", "UniformeFaltaViewer")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relUniformeCol") 
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelUniformeColaborador();
+    });
+
+    function gerarRelatorioUniforme() {
+        location.href = '@Url.Action("DownloadReportUniformeFalta", "Report")?filtro=' + getUniformeColFilterImpressaoUniformeFalta();
+    }
+
+    function gerarRelatorioExcelUniforme() {
+        location.href = '@Url.Action("ExportToExcelUniforme", "Report")?filtro=' + getUniformeColFilterImpressaoUniformeFalta();
+    }
+</script>

@@ -1,0 +1,198 @@
+﻿@model TitansMVC.Models.SetorModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Setor</h4>
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            @if (User.IsInRole("role_auxiliares"))
+            {
+                <li><a href="#dados-epis" role="tab" data-toggle="tab">EPI's</a></li>
+            }
+            
+            @if (User.IsInRole("role_auxiliares_uniforme"))
+            {
+                <li><a href="#dados-uniformes" role="tab" data-toggle="tab">Uniformes</a></li>
+            }
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id, htmlAttributes: new { @id = "txtId" })
+                    @Html.HiddenFor(model => model.Ativo)
+                    @Html.HiddenFor(model => model.Importado)
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    @Html.HiddenFor(model => model.DataCad)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome do Setor" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnidadeNegocioId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("UnidadeNegocioId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (User.IsInRole("role_auxiliares"))
+            {
+                <div id="dados-epis" class="panel tab-pane panel-primary fade">
+                    <div class="panel-body">
+                        <hr />
+                        <h3>EPI's</h3>
+                        <button id="btnAddEpi" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        <div id="inputEpi" hidden>
+                            <br />
+                            @{Html.RenderPartial("_CriarEpi");}
+                        </div>
+
+                        <br />
+                        <div id="epis">
+                            @{Html.RenderPartial("_Epis", Model);}
+                        </div>
+                    </div>
+                </div>
+             }
+            @if (User.IsInRole("role_auxiliares_uniforme"))
+            {
+                <div id="dados-uniformes" class="panel tab-pane panel-primary fade">
+                    <div class="panel-body">
+                        <hr />
+                        <h3>Uniformes</h3>
+                        <button id="btnAddUniforme" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        <div id="inputUniforme" hidden>
+                            <br />
+                            @{Html.RenderPartial("_CriarUniforme");}
+                        </div>
+
+                        <br />
+                        <div id="uniformes">
+                            @{Html.RenderPartial("_Uniformes", Model);}
+                        </div>
+                    </div>
+                </div>
+            }
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.Ativo, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Ativo, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @id = "cbSetorAtivo",
+                                @data_on_text = "Sim",
+                                @data_off_text = "Não",
+                                @data_size = "small"
+                            }
+                        })
+                                @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/setor")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesSetores();
+    });
+
+    function adicionarEpi() {
+        if (($("#ddlEpis option:selected").text() !== "Selecione") && ($("#txtValDias").val() !== "")) {
+
+            //trocado para codigo debaixo porcentagem conta da imagem decodeURI espera NavigatorOnLine funcionar
+            //no primeiro codigo
+            @*$("#epis").load('@Url.Action("AdicionarEpi")', { idModel: $("#txtId").val(), epi: getEpi() });*@
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarEpi")",
+                dataType: "text",
+                data: { idModel: $("#txtId").val(), epi: getEpi() },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                complete: function () {
+                    $("#loading").hide();
+                },
+                success: function (response) {
+                }
+            }).done(function (result) {
+                $("#epis").html(result);
+            });
+        } else {
+            alert("Os campos EPI e Validade precisam ser preenchidos antes de continuar.");
+        }
+    }
+
+    function adicionarUniforme() {
+        if (($("#ddlUniformes option:selected").text() !== "Selecione") && ($("#txtValDiasUniforme").val() !== "")) {
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarUniforme")",
+                dataType: "text",
+                data: { idModel: $("#txtId").val(), uniforme: getUniforme() },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                complete: function () {
+                    $("#loading").hide();
+                },
+                success: function (response) {
+                }
+            }).done(function (result) {
+                $("#uniformes").html(result);
+            });
+        } else {
+            alert("Os campos Uniforme e Validade precisam ser preenchidos antes de continuar.");
+        }
+    }
+</script>

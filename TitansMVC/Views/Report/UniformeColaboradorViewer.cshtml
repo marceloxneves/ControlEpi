@@ -1,0 +1,158 @@
+﻿@using TitansMVC.Models.Enums
+@model TitansMVC.Models.Relatorios.ColaboradorUniformeFilter
+
+@{
+    ViewBag.Title = "UniformeColaborador";
+}
+
+<h3>Relatório - Uniforme X Colaborador</h3><br />
+<h4>Filtros</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <br />
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Nome Fantasia", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("UnidadeNegocioId", null, null, new { @id = "ddlUnidadeNegocio", @class = "form-control" })@*Obrigatório a preencher uma unidade de negócio para que a mesma seja mostrada no relatório*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Colaborador", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("ColaboradorId", null, "Todos", new { @id = "ddlColaboradores", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.LabelFor(model => model.Ativos, new { @class = "control-label col-sm-3" })
+                        @Html.CheckBoxFor(model => model.Ativos,new { @class="checkbox", @checked=true})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Uniforme", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("UniformeId", null, "Todos", new { @id = "ddlUniformes", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Tipo Uniforme", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("TipoUniformeId", null, "Todos", new { @id = "ddlTiposUniformes", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @id = "txtMarca", @placeholder = "Marca do Uniforme" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Setor", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("SetorId", null, "Todos", new { @id = "ddlSetores", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Centro de Custo", new { @class = "control-label col-sm-3" })
+                        @Html.DropDownList("CentroCustoId", null, "Todos", new { @id = "ddlCCustos", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Período", new { @class = "control-label col-sm-3" })
+                        <div style="float:left;">
+                            <input id="dp-inicio" name="DataInicial" class="form-control" style="width: 150px; display: initial" />
+                            a
+                            <input id="dp-fim" name="DataFinal" class="form-control" style="width: 150px; display: initial" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div style="margin-left: 30px" class="col-sm-9">
+                        @Html.RadioButtonFor(model => model.EstadoUniformes, EstadoUniformesConsulta.Entregues, new {  @name = "rb-baixados" }) Em Uso
+                        @Html.RadioButtonFor(model => model.EstadoUniformes, EstadoUniformesConsulta.Baixados, new { @name = "rbEstado" }) Baixados
+                        @Html.RadioButtonFor(model => model.EstadoUniformes, EstadoUniformesConsulta.Todos, new { @checked = true, @name = "rb-todos" }) Todos
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-9">
+                <input type="submit" value="Visualizar Relatório" title="Visualizar relatório de acordo com filtros selecionados" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relUniformeCol") 
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelUniformeColaborador();
+    });
+
+    function carregaColaboradorSetor() {
+        if ($("#ddlUnidadeNegocio option:selected").text() !== "Selecione") {
+            $("#ddlColaboradores").empty();
+            var idUnidadeNegocio = $("#ddlUnidadeNegocio").val() == "" ? 0 : $("#ddlUnidadeNegocio").val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetColaboradorPorUnidadeNegocio")',
+                dataType: 'json',
+                data: { idUnidadeNegocio: idUnidadeNegocio },
+                success: function (colaboradores) {
+                    $("#ddlColaboradores").append('<option value="">Selecione</option>');
+                    $.each(colaboradores, function (i, colaborador) {
+                        $("#ddlColaboradores").append('<option value="' + colaborador.Value + '">' +
+                            colaborador.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Falha ao retornar colaboradores. ' + ex);
+                }
+            });
+
+            $("#ddlSetores").empty();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetSetorPorUnidadeNegocio")",
+                dataType: "json",
+                data: { idUnidadeNegocio: idUnidadeNegocio },
+            success: function (setores) {
+                $("#ddlSetores").append('<option value="">Selecione</option>');
+                $.each(setores, function (i, setor) {
+                    $("#ddlSetores").append('<option value="' + setor.Value + '">' +
+                        setor.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert("Falha ao retornar setores.: " + ex);
+            }
+        });
+
+        } else {
+            //LimparCombosEpiSetores();
+        }
+        return false;
+    }
+</script>
+

@@ -1,0 +1,77 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<TitansMVC.Models.PlanoModel>
+
+<div>
+    <h4>Planos</h4>
+    <hr />
+    <p>
+        @using (Html.BeginForm("Index", "Plano", FormMethod.Get))
+        {
+            <b>Pesquisar Por:</b><br />
+
+            @Html.RadioButton("searchBy", "todos", true, new { @id = "rbTodos" })<text> Todos</text>
+            @Html.RadioButton("searchBy", "cnpj", false, new { @id = "rbCnpj", @style = "margin-left: 10px" })<text> CNPJ</text>
+            <br />
+
+
+            @Html.TextBox("search", null, new { @id = "TbSearch", @class = "form-control", @style = "width: 400px; display: initial", @placeholder = "Texto a ser pesquisado" })<input type="submit" value="Pesquisar" title = "Pesquisar" style="margin-left: 3px" class="btn btn-primary" />
+
+        }
+    </p>
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Cnpj)</th>
+                <th>@Html.DisplayNameFor(model => model.First().NivelPlano)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Validade)</th>
+                <th>@Html.DisplayNameFor(model => model.First().DataUltimaValidacao)</th>
+                <th></th>
+            </tr>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="3">Nenhum resultado para o registro pesquisado.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>                            
+                            @Html.DisplayFor(modelItem => item.Cnpj)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NivelPlano)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Validade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataUltimaValidacao)
+                        </td>
+                        <td><center><a href="@Url.Action("Edit", "Plano", new {id = item.Id})" title="Alterar Registro"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></center></td>
+                    </tr>
+                }
+            }
+        </table>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }))
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/mascaras")
+    <script type="text/javascript">
+        $(document).ready(inicializaComponentes);
+        function inicializaComponentes() {
+            $("#rbTodos").click(prepTbTodos).trigger("click");
+            $("#rbCnpj").click(prepTbCnpj);
+        }
+        function prepTbTodos() {
+            $("#TbSearch").val("").prop("disabled", true).attr("placeholder", "TODOS");
+        }
+        function prepTbCnpj() {
+            $("#TbSearch").val("").prop("disabled", false).attr("placeholder", "Cnpj");
+        }
+    </script>
+}

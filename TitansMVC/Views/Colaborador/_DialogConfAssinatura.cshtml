@@ -1,0 +1,32 @@
+﻿<div class="modal-dialog" style="width: 400px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Conferir Assinatura</h3>
+        </div>
+
+        <div class="modal-body">
+            <div class=" modal-body center-block">
+                <h4>Assinatura Original</h4>
+                <div style="border: solid 1px #999; background: white; padding: 10px; width: 225px">
+                    <img id="imgAssinaturaOriginal" src="" alt="original"/>
+                </div>
+                <br/>
+                <h4>Assinatura Atual</h4>
+                <div style="border: solid 1px #999; background: white; padding: 10px; width: 225px">
+                    <img id="imgAssinaturaAtual" src="" alt="atual"/>
+                </div>
+                <div class="modal-footer">
+                    <input id="btnConfirmarAssinatura" class="btn btn-primary" type="button" onclick="liberarEpi()" value="Liberar EPI" title="Liberar Equipamento" data-dismiss="modal"/>
+                    <button class="btn btn-danger" data-dismiss="modal" onclick=" limparAssinPegarEpi() " title="Negar Equipamento">Negar EPI</button>
+                    <br/>
+                    <br/>
+                    <p style="font-weight: bold; color: darkred; text-align: justify">
+                        Caso a(s) entrega(s) seja(m) liberada(as), após o(s) lançamento(s) favor clicar no botão [Salvar] 
+                        para que a assinatura utilizada para o recebimento dos EPI's seja gravada corretamente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

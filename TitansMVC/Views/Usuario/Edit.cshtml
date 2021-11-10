@@ -1,0 +1,134 @@
+﻿@model TitansMVC.Models.UsuarioModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@*<h2>Edit</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Usuário</h4>
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#dados-permissoes" role="tab" data-toggle="tab">Permissões</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id, htmlAttributes: new { id = "txtId" })
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    @Html.HiddenFor(model => model.Email)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 alinhar-displayfor">
+                            @Html.DisplayFor(model => model.Username)
+                            @Html.HiddenFor(model => model.Username)
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9 alinhar-displayfor">
+                                @Html.DisplayFor(model => model.Email)
+                                @Html.HiddenFor(model => model.Email)
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailConfirmed, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.DisplayFor(model => model.EmailConfirmed)
+                                @Html.HiddenFor(model => model.EmailConfirmed)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Ativo)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dados-permissoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <h3>Permissões</h3>
+                    @if(ViewBag.IsMaster != true)
+                    {
+                        <button id="btnAddPermissao" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                        <div id="inputPermissao" hidden>
+                            <br/>
+                            @{Html.RenderPartial("_CriarPermissao");}
+                        </div>
+                        <br />
+                    }                                       
+                    <div id="permissoes">
+                        @{Html.RenderPartial("_PermissoesUsuario", Model);}
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    @*<div class="form-group" hidden>
+                            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.Ativo)
+                                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+                            }
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/usuario")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializaComponentesUsuario();
+    });
+
+    function adicionarPermissao() {
+        $("#permissoes").load('@Url.Action("AdicionarPermissao")', { idModel: $("#txtId").val(), permissao: getPermissao() });
+    }
+</script>

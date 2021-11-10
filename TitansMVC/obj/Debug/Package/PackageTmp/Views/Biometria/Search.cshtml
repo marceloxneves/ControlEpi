@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<OBJECT classid="CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF"
+        height=0 width=0
+        id="objNBioBSP"
+        name="objNBioBSP"></OBJECT>
+<!DOCTYPE html>
+
+@*<div>
+    <form action="@Url.Action("Search")" name='MainForm' method='post' OnSubmit='return capture();'>
+        <input type=hidden name='FIRTextData'>
+        <button type="submit" class="btn btn-lg btn-default"><img src="~/Content/imgs/Biometric_data-14-512.png" style="height:50px;width:50px;"/>&nbsp;&nbsp;&nbsp;Busca &nbsp;&nbsp;Biométrica</button>
+        <br />
+        <br />
+        <a href="@Url.Action("Index","Colaborador")" class="btn btn-lg btn-default"><img src="~/Content/imgs/colaborador-icon.png"  style="width:50px;height:50px;" />Listar Colaboradores</a>
+    </form>
+</div>*@
+
+@*teste biometria: comentar o div inteiro de cima e descomentar o debaixo*@
+<div>
+        <form action="@Url.Action("Search")" name='MainForm' method='post'>            
+            @*<input type=hidden name='FIRTextData' value="">
+            <input type=hidden name='SearchBiometria' value="@ViewBag.TipoEntrega">
+            <button type="submit" onclick='return chamarDigital();' class="btn btn-lg btn-default"><img src="~/Content/imgs/Biometric_data-14-512.png" style="height:50px;width:50px;" />&nbsp;&nbsp;&nbsp;Busca &nbsp;&nbsp;Biométrica</button>
+            <br />
+            <br />*@
+            @if (ViewBag.PossuiBiometria)
+            {
+                <input type=hidden name='FIRTextData' value="">
+                <input type=hidden name='SearchBiometria' value="@ViewBag.TipoEntrega">
+                <button type="submit" onclick='return chamarDigital();' class="btn btn-lg btn-default"><img src="~/Content/imgs/Biometric_data-14-512.png" style="height:50px;width:50px;" />&nbsp;&nbsp;&nbsp;Busca &nbsp;&nbsp;Biométrica</button>
+                <br />
+                <br />
+            }
+            <a href="@Url.Action("Index","Colaborador")" class="btn btn-lg btn-default"><img src="~/Content/imgs/colaborador-icon.png" style="width:50px;height:50px;" />Listar Colaboradores</a>
+        </form>
+    </div>
+
+<script lang='javascript'>
+    
+    function capture() {
+        var err
+        try // Exception handling
+        {
+            // Open device. [AUTO_DETECT]
+            // You must open device before capture.
+            DEVICE_FDU01 = 2;
+            DEVICE_FDU11 = 4;
+            DEVICE_AUTO_DETECT = 255;
+            var objDevice = document.objNBioBSP.Device;
+            var objExtraction = document.objNBioBSP.Extraction;            
+            objDevice.Open(DEVICE_AUTO_DETECT);            
+            err = objDevice.ErrorCode; // Get error code
+            if (err != 0) // Device open failed
+            {
+                alert('Device open failed !');
+                return (false);
+            }
+            // Enroll user's fingerprint.
+            objExtraction.Capture();
+            err = objExtraction.ErrorCode; // Get error code
+            if (err != 0) // Enroll failed
+            {
+                alert('Capture failed ! Error Number : [' + err + ']');
+                objDevice.Close(DEVICE_AUTO_DETECT);
+                return (false);
+            }
+            else // Capture success
+            {
+                // Get text encoded FIR data from NBioBSP module.
+                document.MainForm.FIRTextData.value = objExtraction.TextEncodeFIR;
+            }
+            // Close device. [AUTO_DETECT]
+            objDevice.Close(DEVICE_AUTO_DETECT);
+            objExtraction = 0;
+            objDevice = 0;
+        } // end try
+        catch (e) {
+            alert(e.message);
+            return (false);
+        }
+        // Submit main form
+        document.MainForm.submit();
+        return (true);
+    }    
+  
+    //teste biometria
+    function chamarDigital() {
+        $.ajax({
+            async: false,
+            cache: false,
+            url: 'http://localhost:9000/api/public/v1/captura/Capturar/1',
+            type: 'GET',
+            success: function (data) {
+                if (data != "") {
+                    document.MainForm.FIRTextData.value = data;
+                    document.MainForm.submit();
+                    return (true);
+                }
+            },
+            error: function () {
+                alert('error');
+                return (false);
+            }
+        })
+    }
+
+</script>
+
+
+
+

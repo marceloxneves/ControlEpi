@@ -1,0 +1,183 @@
+﻿@model TitansMVC.Models.EpiModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Epi", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cadastrar Novo EPI</h4>
+
+        @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoEpiId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("TipoEpiId", null, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Ca, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Ca, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return SomenteNumero(event);" } })
+                            @Html.ValidationMessageFor(model => model.Ca, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ValidadeCa, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-val-ca" name="ValidadeCa" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.ValidadeCa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiFabricante, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiFabricante, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodEpiFabricante, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiCliente, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiCliente, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodEpiCliente, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodEpiTitans, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodEpiTitans, new { htmlAttributes = new { @class = "form-control text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodEpiTitans, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.FamiliaId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("FamiliaId", null, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FamiliaId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Custo, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Custo, new { htmlAttributes = new { @class = "form-control", @id = "txtCustoEpi" } })
+                            @Html.ValidationMessageFor(model => model.Custo, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnidadeNegocioId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("UnidadeNegocioId", null, String.Empty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UnidadeNegocioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodigoDeBarras, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.CodigoDeBarras, new { htmlAttributes = new { @class = "form-control  text-uppercase" } })
+                            @Html.ValidationMessageFor(model => model.CodigoDeBarras, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control  text-uppercase" } })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Foto:</label>
+                        <input type="file" class="filestyle" data-input="false" data-buttontext="Selecione a Foto" onchange=" readFotoEpi(this) " id="foto" name="uploadfoto" />
+                        <br />
+                        <img id="foto-epi" style="width: 200px; height: 200px;" />
+                        <br /><br />
+                        <button type="button" name="removefoto" class="btn btn-default" data-input="false" onclick="removeFotoEpi()" id="foto">Remover Imagem </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Inserir" title="Inserir novo EPI" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/epi")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesEpi();
+    });
+</script>

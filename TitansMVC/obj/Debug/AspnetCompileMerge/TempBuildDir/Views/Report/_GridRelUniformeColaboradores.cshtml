@@ -1,0 +1,65 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<TitansMVC.Models.Relatorios.RelUniformeColModel>
+
+@if (Model != null && Model.Any())
+{
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th class="colHideSmart" width="35%">
+                    @Html.DisplayNameFor(model => model.nome_colaborador)
+                </th>
+                <th width="34%">
+                    @Html.DisplayNameFor(model => model.nome_uniforme)
+                </th>
+                <th width="9%">
+                    @Html.DisplayNameFor(model => model.qtde_uniformes)
+                </th>
+                <th class="colHideSmart" width="13%">
+                    @Html.DisplayNameFor(model => model.data_entrega)
+                </th>
+                <th class="colHideSmart" width="9%">
+                    @Html.DisplayNameFor(model => model.possui_biometria)                 
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="colHideSmart">
+                        @Html.DisplayFor(modelItem => item.nome_colaborador)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nome_uniforme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.qtde_uniformes)
+                    </td>
+                    <td class="colHideSmart">
+                        @Html.DisplayFor(modelItem => item.data_entrega)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.possui_biometria)
+                    </td>                    
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <span>Nenhum Resultado para o Registro Pesquisado</span>
+}
+
+@if (Model != null && Model.Any())
+{
+
+    var Modelo = JsonConvert.SerializeObject(Model);
+
+    <a id="btnImprimir" data-toggle="modal" 
+       onclick="gerarRelatorioUniforme()"
+       title="Gerar Impressão">
+        <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+    </a>
+}
+

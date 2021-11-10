@@ -1,0 +1,3 @@
+﻿function InicializarComponentesCentroCusto() {
+    //$("#cbCentroCustoAtivo").bootstrapSwitch();
+}

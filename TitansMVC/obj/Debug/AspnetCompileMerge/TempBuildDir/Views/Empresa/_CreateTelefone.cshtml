@@ -1,0 +1,38 @@
+﻿
+<table>
+    <tr>
+        <td style="width: 330px">
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("Descrição")
+                    @Html.TextBox("txtTelDescricao", null, new { @class = "form-control text-uppercase", @style = "width: 300px;", @placeholder = "Descrição" })
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("Número")
+                    @Html.TextBox("txtTelNumero", null, new { @class = "form-control  text-uppercase", @onfocus = "phoneMaskHandler(event);", @onblur = "phoneMaskHandler(event);", @placeholder = "Número" })
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    @Html.Label("Ramal")
+                    @Html.TextBox("txtTelRamal", null, new { @class = "form-control  text-uppercase", @placeholder = "Ramal" })
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input id="btnCreateTel" class="btn btn-primary" type="button" onclick=" adicionarTelefone() " value="Incluir"/>
+            <span id="loading-fone" class="text-center" style="display: none;">
+                <img src="/images/wait.gif" alt="aguarde" />
+                Aguarde...
+            </span>
+        </td>
+    </tr>
+</table>

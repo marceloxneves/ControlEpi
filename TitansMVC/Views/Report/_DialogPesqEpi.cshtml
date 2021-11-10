@@ -1,0 +1,37 @@
+﻿@using TitansMVC.Models
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Pesquisar EPI</h3>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <b>Pesquisar Por:</b>
+                <br />
+                @Html.RadioButton("searchEpiBy", "Id", true, new { @id = "it-id", @style = "margin-left: 10px" })<text>ID</text>
+                @Html.RadioButton("searchEpiBy", "Nome", false, new { @id = "it-nome", @style = "margin-left: 10px" })<text>Nome</text>
+                <br />
+                @Html.TextBox("search-epi", null, new { @placeholder = "Texto a ser pesquisado" })
+
+                <input type="button" onclick=" pesquisarEpi() " value="Pesquisar" style="margin-left: 3px" class="btn-primary" />
+            </div>
+            <div id="episPesquisados">
+                @{ var epis = new List<EpiModel>();}
+                @Html.Partial("_GridPesqEpis", epis)
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <span id="progress" class="text-center" style="display: none;">
+                <img src="/images/wait.gif" alt="wait" />
+                Wait..
+            </span>
+
+            @*<input id="btnSelecionar" class="btn btn-primary" type="button" onclick=" selecionarEpi() " value="Incluir" data-dismiss="modal" />*@
+            <button class="btn btn-warning" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

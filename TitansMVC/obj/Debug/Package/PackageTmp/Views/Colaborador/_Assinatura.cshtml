@@ -1,0 +1,15 @@
+﻿@model TitansMVC.Models.ColaboradorModel
+
+@if (Model != null && Model.Assinatura != null)
+{
+    <div style="border: solid 1px #999; background: white; padding: 10px; display: table;">
+        <img id="assinaturaColaborador" src="~/Assinatura?id=@Model.Id" alt="assinatura"/>
+        <input type="hidden" id="base64" />
+    </div>
+}
+else
+{
+    @*<div style="border: solid 1px #999; background: white; padding: 10px; display: table;">*@
+        <img id="assinaturaColaborador" src="" alt="assinatura" />
+    @*</div>*@
+}

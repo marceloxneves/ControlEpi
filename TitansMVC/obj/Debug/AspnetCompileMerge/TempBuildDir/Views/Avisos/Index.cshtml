@@ -1,0 +1,55 @@
+﻿@using Microsoft.Ajax.Utilities
+@using TitansMVC.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="color: crimson">Avisos</h2>
+<br/>
+@if (ViewBag.EpisCaVencidos != null)
+{
+    <div id="episCaVenc">
+        @{ Html.RenderPartial("_EpisCaVencidos", ViewBag.EpisCaVencidos as ICollection<EpiModel>); }
+    </div>
+}
+
+@if (ViewBag.EpisCaAVencer != null)
+{
+    <br />
+    <div id="episCaAVencer">
+        @{ Html.RenderPartial("_EpisCaAVencer", ViewBag.EpisCaAVencer as ICollection<EpiModel>); }
+    </div>
+}
+
+@if (ViewBag.EpisVencidos != null)
+{
+    <br/>
+    <div id="episVenc">
+        @{ Html.RenderPartial("_EpisVencidos", ViewBag.EpisVencidos as ICollection<EpiColaboradorModel>); }
+    </div>
+}
+
+@if (ViewBag.EpisAVencer != null)
+{
+    <br />
+    <div id="episAVencer">
+        @{ Html.RenderPartial("_EpisAVencer", ViewBag.EpisAVencer as ICollection<EpiColaboradorModel>); }
+    </div>
+}
+
+@if (ViewBag.UniformesVencidos != null)
+{
+    <br />
+    <div id="uniformesVenc">
+        @{ Html.RenderPartial("_UniformesVencidos", ViewBag.UniformesVencidos as ICollection<UniformeColaboradorModel>); }
+    </div>
+}
+
+@if (ViewBag.UniformesAVencer != null)
+{
+    <br />
+    <div id="uniformesAVencer">
+        @{ Html.RenderPartial("_UniformesAVencer", ViewBag.UniformesAVencer as ICollection<UniformeColaboradorModel>); }
+    </div>
+}

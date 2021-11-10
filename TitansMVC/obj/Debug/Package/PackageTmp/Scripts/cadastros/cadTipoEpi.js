@@ -1,0 +1,3 @@
+﻿function InicializarComponentesTipoEpi() {
+    //$("#cbTipoEpiAtivo").bootstrapSwitch();
+}

@@ -1,0 +1,192 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.file {
+  visibility: hidden;
+  position: absolute;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.input-validation-error, .required {
+    border-left: 5px solid #ee0000 !important;
+}
+
+.valid {
+    border-left: 5px solid #00aa00 !important;
+}
+
+.field-validation-error {
+    color: #990000;
+}
+
+::-webkit-input-placeholder {
+   text-transform: uppercase;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-transform: uppercase; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-transform: uppercase; 
+}
+
+:-ms-input-placeholder {  
+   text-transform: uppercase;  
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+tfoot {
+    text-align: right;
+}
+
+    tfoot > tr > td a:link {
+        color: #fff;
+        background-color: #333;
+        padding: 5px 10px;
+        border-radius: 7px;
+    }
+
+.editor-multiline-field textarea {
+    /*width: 300px;*/
+    height: 150px;
+}
+
+.wide-500-form-control {
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    max-width: 500px;
+    width: 500px;
+}
+
+.td-fonte-vermelha-central {
+    color: #DF013A;
+    font-weight: bold;
+    text-align: center;
+}
+
+.td-fonte-azul-central {
+    color: blue;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alinhar-displayfor {
+    padding-top: 7px;
+}
+
+#divTopo {
+    width: 100%;
+    background-image: url('../images/TopoFull.jpg');
+    height: 195px;
+}
+
+.webGrid {
+    margin: 4px;
+    border-collapse: collapse;
+    width: 500px;
+    background-color: #FCFCFC;
+}
+
+.header {
+    background-color: #C1D4E6;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.webGrid th, .webGrid td {
+    border: 1px solid #C0C0C0;
+    padding: 5px;
+}
+
+.alt {
+    background-color: #E4E9F5;
+    color: #000;
+}
+
+.gridHead a:hover {
+    text-decoration: underline;
+}
+
+.description {
+    width: auto;
+}
+
+.select {
+    background-color: #389DF5;
+}
+
+.box-inline {
+    float: left;
+    display: inline-flex;
+}
+
+.navbar-login {
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session {
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size {
+    font-size: 87px;
+}
+
+@media(max-width: 767px) {
+    .colHideSmart {
+        display: none;
+    }
+}
+
+input[type=radio]:hover {
+    cursor:pointer;
+}
+
+.oculto {
+    display: none;
+}

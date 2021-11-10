@@ -1,0 +1,87 @@
+﻿<object classid="CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF"
+        height=0 width=0
+        id="objNBioBSP"
+        name="objNBioBSP"></object>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cadastrar Biometria</h2>
+
+@*<form id="colabEditForm" name='MainForm' method='post' onsubmit='return regist();'>*@
+<form id="colabEditForm" name='MainForm' method='post'>
+    @Html.Label("Colaborador")
+    @Html.DropDownList("IdColaborador", null, "SELECIONE", new { @class = "form-control", @id = "ddlColaborador" })
+    <br />
+    <input type=hidden id="FIRTextData" name='FIRTextData'>
+    @*User ID : <input type=text name=UserID size=20><p>*@
+    <input type=submit onclick="return regist();" value='Efetuar o Registro Biométrico' class="btn btn-primary">
+    @*<input type=button onclick="return regist();" value=' Clique aqui para efetuar o Registro Biométrico '>
+
+        <input id="btnSalvarAssinatura" class="btn btn-primary" type="button" onclick=" salvarRegistroBiometrico() " value="Criar Assinatura" title="Criar assinatura" data-dismiss="modal" />*@
+</form>
+
+<script lang='javascript'>
+    function regist() {
+        var err, payload
+        // Check ID is not NULL
+        if (document.MainForm.IdColaborador.value == '') {
+            alert('Selecione um colaborador para prosseguir!');
+            return (false);
+        }
+        try // Exception handling
+        {
+            // Open device. [AUTO_DETECT]
+            // You must open device before enroll.
+            DEVICE_FDU01 = 2;
+            DEVICE_FDU11 = 4;
+            DEVICE_AUTO_DETECT = 255;
+            var obj = document.objNBioBSP;
+            //obj.SetSkinResource('NBSP2Por.dll');
+            var objDevice = obj.Device;
+            var objExtraction = document.objNBioBSP.Extraction;
+            objDevice.Open(DEVICE_AUTO_DETECT);
+            //objDevice.Open(2);
+
+            err = objDevice.ErrorCode; // Get error code
+            if (err != 0) // Device open failed
+            {
+                alert('Comunicação com equipamento falhou!');
+                return (false);
+            }
+            // Enroll user's fingerprint.
+            //objExtraction.Enroll(payload);
+            objExtraction.Enroll(payload, null);
+
+
+            err = objExtraction.ErrorCode; // Get error code
+            if (err != 0) // Enroll failed
+            {
+                alert('Registro Biométrico falhou ou foi cancelado pelo usuário!');
+                objDevice.Close(DEVICE_AUTO_DETECT);
+                return (false);
+            }
+            else // Enroll success
+            {
+                // Get text encoded FIR data from NBioBSP module.
+                //document.MainForm.FIRTextData.value = objExtraction.TextEncodeFIR;
+                $("#FIRTextData").val(objExtraction.TextEncodeFIR);
+
+                //alert('Registro Biométrico efetuado com Sucesso!');
+            }
+            // Close device. [AUTO_DETECT]
+            objDevice.Close(DEVICE_AUTO_DETECT);
+            objExtraction = 0;
+            objDevice = 0;
+        }
+        catch (e) {
+            alert(e.message);
+            return (false);
+        }
+        // Submit main form
+        document.MainForm.submit();
+        return (true);
+    }
+</script>
+

@@ -1,0 +1,65 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<TitansMVC.Models.Relatorios.RelUniformeFaltaModel>
+
+@if (Model != null && Model.Any())
+{
+    <table id="tblRelUniformes" class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cod_interno)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.nome_uniforme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marca)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.qtde_estoque)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.qtde_min)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cod_interno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_uniforme)
+                </td>
+                <td  class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.marca)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.qtde_estoque)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.qtde_min)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <span>Nenhum Resultado para o Registro Pesquisado</span>
+}
+
+@if (Model != null && Model.Any())
+{
+
+    <div>
+        <a id="btnImprimir" data-toggle="modal"
+           onclick="gerarRelatorioUniforme()"
+           title="Gerar Impressão">
+            <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+        </a>
+        
+    </div>
+}
+
+

@@ -1,0 +1,403 @@
+﻿@using TitansMVC.Helpers
+@using TitansMVC.Models.Enums
+@model TitansMVC.Models.EmpresaModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Empresa", null, FormMethod.Post, new { id = "empresaEditForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Empresa</h4>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            <li><a href="#dados-endereco" role="tab" data-toggle="tab">Dados Endereço</a></li>
+            <li><a href="#dados-contatos" role="tab" data-toggle="tab">Dados Contatos</a></li>
+            <li><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+            <li><a href="#dados-plano" role="tab" data-toggle="tab">Dados Plano</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id, new { id = "model-id" })
+                    @Html.HiddenFor(model => model.Ativo)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Razao, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Razao, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Razão Social" } })
+                            @Html.ValidationMessageFor(model => model.Razao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Fantasia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Fantasia, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome Fantasia" } })
+                            @Html.ValidationMessageFor(model => model.Fantasia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cnpj, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cnpj, new { htmlAttributes = new { @class = "form-control disabled", @onkeypress = "return SomenteNumero(event);", @placeholder = "CNPJ", @disabled=true } })
+                            @Html.HiddenFor(model => model.Cnpj)
+                            @Html.ValidationMessageFor(model => model.Cnpj, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InscrEst, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.InscrEst, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inscrição Estadual" } })
+                            @Html.ValidationMessageFor(model => model.InscrEst, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InscrMun, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.InscrMun, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inscrição Municipal" } })
+                            @Html.ValidationMessageFor(model => model.InscrMun, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cnae, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cnae, new { htmlAttributes = new { @class = "form-control", @placeholder = "CNAE" } })
+                            @Html.ValidationMessageFor(model => model.Cnae, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control text-lowercase", @placeholder = "URL" } })
+                            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dados-endereco" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndEndereco, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndEndereco, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Nome da rua, avenida, etc..." } })
+                            @Html.ValidationMessageFor(model => model.EndEndereco, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndNumero, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndNumero, new { htmlAttributes = new { @class = "form-control text-uppercase", @onkeypress = "return SomenteNumero(event);", @placeholder = "Número" } })
+                            @Html.ValidationMessageFor(model => model.EndNumero, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndComplemento, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndComplemento, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Complemento" } })
+                            @Html.ValidationMessageFor(model => model.EndComplemento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndBairro, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndBairro, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "Bairro" } })
+                            @Html.ValidationMessageFor(model => model.EndBairro, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndCep, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.EndCep, new { htmlAttributes = new { @class = "form-control", @id = "txtCep", @placeholder = "CEP" } })
+                            @Html.ValidationMessageFor(model => model.EndCep, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SiglaUf, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("SiglaUf", null, String.Empty, new { @class = "form-control", @id = "ddlUfEmpr" })
+                            @Html.ValidationMessageFor(model => model.SiglaUf, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Municipio, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("MunicipioId", null, String.Empty, new { @class = "form-control", @id = "ddlMunicipioEmpr" })
+                            @Html.ValidationMessageFor(model => model.MunicipioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dados-contatos" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <h3>Telefones</h3>
+                    <button id="btnAddTel" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    <div id="inputsTel" hidden>
+                        <br />
+                        @{Html.RenderPartial("_CreateTelefone");}
+                    </div>
+
+                    <br />
+                    <div id="telefones">
+                        @{Html.RenderPartial("_Telefones", Model.Telefones);}
+                    </div>
+
+                    <h3>E-mails</h3>
+                    <button id="btnAddMail" class="btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    <div id="inputsMail" hidden>
+                        <br />
+                        @{Html.RenderPartial("_CreateEmail");}
+                    </div>
+                    <br />
+                    <div id="emails">
+                        @{Html.RenderPartial("_Emails", Model.Emails);}
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Matriz, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Matriz, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @id = "cbEmprMatriz",
+                               @data_on_text = "Sim",
+                               @data_off_text = "Não",
+                               @data_size = "small"
+                           }
+                       })
+                                @Html.ValidationMessageFor(model => model.Matriz, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (User.IsInRole("role_master"))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PossuiBiometria, htmlAttributes: new {@class = "control-label col-sm-3"})
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.PossuiBiometria, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @id = "cbPossuiBiometria",
+                                            @data_on_text = "Sim",
+                                            @data_off_text = "Não",
+                                            @data_size = "small"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.PossuiBiometria, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PossuiAssinatura, htmlAttributes: new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.PossuiAssinatura, new
+                               {
+                                   htmlAttributes = new
+                                   {
+                                       @id = "cbPossuiAssinatura",
+                                       @data_on_text = "Sim",
+                                       @data_off_text = "Não",
+                                       @data_size = "small"
+                                   }
+                               })
+                                    @Html.ValidationMessageFor(model => model.PossuiAssinatura, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Logomarca:</label>
+
+                        <input type="file" name="uploadlogo" class="filestyle" data-input="false" data-buttontext="Selecione a Imagem" onchange=" readLogoEmprImage(this) " id="logo" />
+                        <br />
+                        @if (Model.Logomarca != null && Model.Logomarca.Length > 0)
+                        {
+                            <img id="logo-empr" style="width: 100px; height: 100px" src="~/Logomarca?id=@Model.Id" alt="logo" />
+                        }
+                        else
+                        {
+                            <img id="logo-empr" style="width: 100px; height: 100px" src="#" alt="logo" />
+                        }
+                        <br /><br />
+                        <button type="button" name="removelogo" class="btn btn-default" data-input="false"  onclick="removeLogoEmpresa()" id="logo" >Remover Imagem </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dados-plano" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <input type="hidden" name="planoOption" id="planoOption" value="0" />
+                    <div class="form-group">
+                        &nbsp;&nbsp; Plano: @Html.Label( (string) ViewBag.PlanoNome)
+                    </div>
+                    <div class="form-group">
+                        &nbsp;&nbsp; Validade: @Html.Label((string) ViewBag.ValidadePlano)
+                    </div>
+                    <div class="form-group">
+                        &nbsp;&nbsp; Colaboradores Restantes: @Html.Label((string) ViewBag.NumeroDeColaboradoresRestantes)
+                    </div>
+                    @*<a class="btn btn-danger" href="@Url.Action("AtualizarPlano", "Empresa", Model)">Atualizar Plano</a>*@
+                    @*<input id="btnAtualizarPlano" class="btn btn-primary" type="button" onclick=" atualizarPlano() " value="Atualizar Plano" title="Atualizar plano"/>*@
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+@section Scripts
+                    {
+    @Scripts.Render("~/bundles/cadastros/empresa")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesEmpresa();
+
+        $("#ddlUfEmpr").change(function () {
+            $("#ddlMunicipioEmpr").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetMunicipios")',
+                dataType: 'json',
+                data: { siglaUf: $("#ddlUfEmpr").val() },
+                success: function (municipios) {
+                    $.each(municipios, function (i, municipio) {
+                        $("#ddlMunicipioEmpr").append('<option value="' + municipio.Value + '">' +
+                            municipio.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Falha ao retornar municipios. ' + ex);
+                }
+            });
+
+            return false;
+        });
+    });
+
+    @*function salvarLogo() {
+        //Utilizar o toDataURL para converter em Base64
+        var base64 = document.getElementById("logo-empr").src;
+        base64 = base64.substr(base64.indexOf(',') + 1, base64.length);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SalvarLogo")',
+            dataType: "json",
+            data: { idEmpr: $("#model-id").val(), base64: base64 },
+            error: function (xmlHttpRequest, status, err) {
+                //alert("Ocorreu o seguinte erro:" + xmlHttpRequest.responseText);
+            }
+        });
+    }*@
+
+    function adicionarTelefone() {
+        if (($("#txtTelDescricao").val() !== "") || ($("#txtTelNumero").val() !== "")) {
+            //trocado para codigo debaixo porcentagem conta da imagem decodeURI espera NavigatorOnLine funcionar
+            //no primeiro codigo
+            @*$("#telefones").load('@Url.Action("AdicionarTelefone")', { idModel: $("#model-id").val(), telefone: getTel() });*@
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarTelefone")",
+                dataType: "text",
+                data: { idModel: $("#model-id").val(), telefone: getTel() },
+                beforeSend: function () {
+                    $('#loading-fone').show();
+                },
+                complete: function () {
+                    $("#loading-fone").hide();
+                },
+                success: function (response) {
+                }
+            }).done(function (result) {
+                $("#telefones").html(result);
+            });
+        } else {
+            alert("Os campos Descrição e Número (telefone) precisam estar preenchidos para prosseguir.");
+        }
+    }
+
+    function adicionarEmail() {
+        if (($("#txtMailDescricao").val() !== "") || ($("#txtMailEmail").val() !== "")) {
+            //trocado para codigo debaixo porcentagem conta da imagem decodeURI espera NavigatorOnLine funcionar
+            //no primeiro codigo
+            @*$("#emails").load('@Url.Action("AdicionarEmail")', { idModel: $("#model-id").val(), email: getMail() });*@
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AdicionarEmail")",
+                dataType: "text",
+                data: { idModel: $("#model-id").val(), email: getMail() },
+                beforeSend: function () {
+                    $('#loading-mail').show();
+                },
+                complete: function () {
+                    $("#loading-mail").hide();
+                },
+                success: function (response) {
+                }
+            }).done(function (result) {
+                $("#emails").html(result);
+            });
+        } else {
+            alert("Os campos Descrição e E-mail precisam estar preenchidos para prosseguir.");
+        }
+    }
+
+    function atualizarPlano() {
+        var form = $("#empresaEditForm");
+        $("#planoOption").val(1);
+        form.submit();
+    }
+    
+</script>

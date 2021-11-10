@@ -1,0 +1,17 @@
+CAMPO               -     TIPO
+
+nome                - [varchar max 200] - nome completo do colaborador
+cpf                 - [varchar max 20] - CPF do colaborador
+cod_colaborador     - [varchar max 50] - código do colaborador no cadastro original
+genero              - [numérico: 0 ou 1] - gênero do colaborador [0 - masculino; 1 - feminino]
+data_admissao       - [data formato: dd/mm/yyyy] - data de admissão do colaborador
+data_nascimento     - [data formato: dd/mm/yyyy] - data de nascimento do colaborador
+recebeu_treinamento - [numérico: 0 -não 1 - sim] - indica se o colaborador já recebeu treinamento de utilização de EPI
+recebeu_advertencia - [numérico: 0 -não 1 - sim] - indica se o colaborador já recebeu advertência (relacionada à utiização de EPI)
+motivo_advertencia  - [varchar max 500] - descrição do motivo da(s) advertência(s), caso exista
+obs                 - [varchar max 500] - observações gerais sobre o colaborador
+setor               - [varchar max 20] - nome do setor em que o colaborador será vinculado ao ControlEpi
+
+Obs 1:  nome da planilha deve ser o nome da tabela a ser importada (ex: 'colaborador')
+Obs 2: A ordem dos campos é indiferente
+Obs 3: atualmente apenas disponíveis opções de importação para colaboradores e Epis

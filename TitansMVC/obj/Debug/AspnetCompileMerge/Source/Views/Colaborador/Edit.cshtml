@@ -1,0 +1,276 @@
+﻿@using System.Data.Entity
+@using TitansMVC.Models.Enums
+@model TitansMVC.Models.ColaboradorModel
+
+<div id="objFing">
+    <object classid="CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF"
+            height=0 width=0
+            id="objNBioBSP"
+            name="objNBioBSP"></object>
+</div>
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Colaborador", null, FormMethod.Post, new { id = "colabEditForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Alterar Colaborador</h4>
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <ul id="tabsColEdit" class="nav nav-pills" role="tablist">
+            <li id="tabPrincipal" class="active"><a href="#dados-gerais" role="tab" data-toggle="tab">Dados Gerais</a></li>
+            @*<li id="tabEpis"><a href="#dados-epis" role="tab" data-toggle="tab">EPI's</a></li>*@
+            <li id="tabOutrasInf"><a href="#outras-informacoes" role="tab" data-toggle="tab">Outras Informações</a></li>
+        </ul>
+
+        <div class="tab-content panel">
+            <div id="dados-gerais" class="tab-pane active panel panel-primary fade in">
+                <div class="panel-body">
+                    <hr />
+
+                    @Html.HiddenFor(model => model.Id, new { @id = "txtId" })
+                    @*@Html.HiddenFor(model => model.Ativo)*@
+                    @Html.HiddenFor(model => model.Importado)
+                    @Html.HiddenFor(model => model.IdEmpresa)
+                    @Html.HiddenFor(model => model.Biometria, new { @id = "txtRegBimetr" })
+                    @Html.HiddenFor(model => model.DataCad)
+
+
+                    <input type="hidden" id="txtTipoValidacao" name="TipoValidacao">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-uppercase", @id = "txt-nome-col", @placeholder = "nome do colaborador" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Genero, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(model => model.Genero, TitansMVC.Models.Enums.Genero.Masculino, new { id = "radio-male" })                               
+                                <label for="radio-male" style="font-weight:normal !important;">Masculino &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                @Html.RadioButtonFor(model => model.Genero, TitansMVC.Models.Enums.Genero.Feminino, new { id = "radio-female" })                                
+                                <label for="radio-female" style="font-weight:normal !important;">Feminino</label>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control", @id = "txtCpf", @placeholder = "CPF" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SetorId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("SetorId", null, String.Empty, new { @class = "form-control", @id = "ddlSetor" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FuncaoId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("FuncaoId", null, String.Empty, new { @class = "form-control", @id = "ddlSetor" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LbcId, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("LbcId", null, String.Empty, new { @class = "form-control", @id = "ddlLbc" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NumRegEmpresa, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.NumRegEmpresa, new { htmlAttributes = new { @class = "form-control text-uppercase", @placeholder = "número de registro na empresa" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataAdmissao, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-admissao" name="DataAdmissao" value="@Model.DataAdmissao" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataNascimento, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            <input id="dtp-data-nascimento" name="DataNascimento" value="@Model.DataNascimento" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Ativo, new { @class = "control-label col-sm-3" })
+                        <div class='col-sm-3'>
+                            @Html.EditorFor(model => model.Ativo, new { htmlAttributes = new { @class = "checkbox" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outras-informacoes" class="panel tab-pane panel-primary fade">
+                <div class="panel-body">
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RecebeuTreinamento, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.RecebeuTreinamento, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @id = "cbRecebeuTreinamento",
+                                   @data_on_text = "Sim",
+                                   @data_off_text = "Não",
+                                   @data_size = "small"
+                               }
+                           })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RecebeuAdvertencia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.RecebeuAdvertencia, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @id = "cbRecebeuAdvertencia",
+                                   @data_on_text = "Sim",
+                                   @data_off_text = "Não",
+                                   @data_size = "small"
+                               }
+                           })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="div-motivo-advertencia" class="form-group" hidden>
+                        @Html.LabelFor(model => model.MotivoAdvertencia, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.MotivoAdvertencia, new { htmlAttributes = new { @id = "taMotAdvertencia", @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9 editor-multiline-field">
+                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Foto:</label>
+
+                        <input type="file" class="filestyle" data-input="false" data-buttontext="Selecione a Foto" onchange=" readImage(this) " id="foto" name="uploadfoto" />
+                        <br />
+
+                        @if (Model.Foto != null && Model.Foto.Length > 0)
+                        {
+                            <img id="foto-col" style="width: 80px; height: 100px" src="~/FotoColaborador?id=@Model.Id" alt="foto" />
+                        }
+                        else
+                        {
+                            <img id="foto-col" class="oculto" style="width: 80px; height: 100px" src="#" alt="foto" />
+                        }
+                    </div>
+
+                    <br />
+                    @*<a href="@Url.Action("Create", "Biometria" , new {id=Model.Id})" class="btn btn-default" title="Cadastrar Biometria"><img src="~/Content/imgs/biometric-icon.png" style="width:50px;height:50px;">Cadastrar Biometria</a>*@
+                    @if (ViewBag.PossuiBiometria)
+                    {
+                        <a href="@Url.Action("Create", "Biometria" , new {id=Model.Id})" class="btn btn-default" title="Cadastrar Biometria"><img src="~/Content/imgs/biometric-icon.png" style="width:50px;height:50px;">Cadastrar Biometria</a>
+                    }
+                    
+
+
+                    @if (ViewBag.PossuiAssinatura)
+                    {
+                        <div>
+                            <label>Assinatura</label><br />
+                            <a class="btn btn-success" data-toggle="modal" href="#addAssinatura" id="btnCriarAssinatura" title="Criar Assinatura">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                        <br />
+                        <div>
+                            @{Html.RenderPartial("_Assinatura", Model);}
+                            <input type="hidden" name="imageData" id="imageData" />
+                            <input type="hidden" name="assinOption" id="assinOption" value="0" />
+                        </div>
+                                }
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:10px">
+                <div class="col-sm-9">
+                    <input type="submit" value="Salvar" title="Salvar alterações" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+                                }
+<div>
+    @Html.ActionLink("Voltar à Tela de Pesquisa", "Index")
+</div>
+
+<!-- Modal -->
+<div class="modal fade in" id="addAssinatura">
+    @Html.Partial("_DialogCriarAssinatura")
+</div>
+
+<div class="modal fade in" id="assinarAut">
+    @Html.Partial("_DialogAssinaturaAutorizacao")
+</div>
+
+<div class="modal fade in" id="conferirAssinatura">
+    @Html.Partial("_DialogConfAssinatura")
+</div>
+
+<div class="modal fade in" id="baixarEpiEntregue">
+    @Html.Partial("_DialogBaixarEpiEntregue")
+</div>
+
+<div class="modal fade in" id="baixarUniformeEntregue">
+    @Html.Partial("_DialogBaixarUniformeEntregue")
+</div>
+
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/cadastros/colaborador")
+    @Scripts.Render("~/bundles/validacao")
+    @Scripts.Render("~/bundles/jszipcompr")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesColaboradores();
+        InicializarEditComponentesColaboradores();
+
+
+        $(window).on("unload", function () {
+            $.ajax({
+                url: "@Url.Action("AtualizarAssinaturaPendente")",
+                data: { id: $("#txtId").val() },
+                async: false
+            });
+        });
+    });
+</script>

@@ -1,0 +1,73 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<TitansMVC.Models.Relatorios.RelConsumoUniformeModel>
+
+@if (Model != null && Model.Any())
+{
+    <table id="tblRelUniformes" class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_uniforme)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.nome_colaborador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.uniforme_custo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.qtde_uniformes)
+            </th>
+            <th class="colHideSmart">
+                @Html.DisplayNameFor(model => model.custo_total)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_uniforme)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.nome_colaborador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.uniforme_custo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.qtde_uniformes)
+                </td>
+                <td class="colHideSmart">
+                    @Html.DisplayFor(modelItem => item.custo_total)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <span>Nenhum Resultado para o Registro Pesquisado</span>    
+}
+
+@if (Model != null && Model.Any())
+{
+
+    var Modelo = JsonConvert.SerializeObject(Model);
+
+    <div style="float: right; border: 1px solid #DDDDDD;">Total: R$ @Model.Sum(i => i.custo_total)</div>
+
+    <div>
+        <a id="btnImprimir" data-toggle="modal" 
+           onclick=" gerarRelatorioUniforme() "
+           title="Gerar Impressão">
+            <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+        </a>
+
+        <a id = "btnExportarExcel" data - toggle = "modal" 
+            onclick=" gerarRelatorioExcelUniforme() "
+            title="Gerar Arquivo Excel">
+            <span class="btn btn-primary" aria-hidden="true">Exportar para Excel</span>
+        </a>
+</div>
+}
+

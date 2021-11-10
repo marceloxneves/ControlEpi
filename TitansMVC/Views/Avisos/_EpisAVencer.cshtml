@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TitansMVC.Models.EpiColaboradorModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+@if (Model != null && Model.Any())
+{
+    <h4>EPI's a Vencer</h4>
+
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeEpi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Colaborador.Nome)
+                </th>
+                <th style="width: 200px; text-align: center">
+                    @Html.DisplayNameFor(model => model.DataVencimento)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeEpi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Colaborador.Nome)
+                    </td>
+                    <td style="text-align: center">
+                        @if (item.DataVencimento != null)
+                        {
+                            @item.DataVencimento.Value.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

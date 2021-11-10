@@ -1,0 +1,9 @@
+﻿@if ((ViewBag.PossuiFicha != null) && (ViewBag.PossuiFicha))
+{
+    <a id="btnCriarVisualFicha" class="btn btn-primary" data-toggle="modal" title="Visualizar a Ficha deste Uniforme" href="#ficha" onclick="CarregarFicha();">Visualizar Ficha</a>
+    <a id="btnExcluirFicha" class="btn btn-primary" title="Excluir a Ficha deste Uniforme" onclick="excluirFicha();">Excluir Ficha</a>
+}
+else
+{
+    <a id="btnCriarVisualFicha" class="btn btn-primary" data-toggle="modal" title="Criar Ficha para este Uniforme" href="#ficha" onclick="CarregarFichaParcial();">Criar Ficha</a>
+}

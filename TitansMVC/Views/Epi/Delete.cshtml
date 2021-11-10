@@ -1,0 +1,61 @@
+﻿@model TitansMVC.Models.EpiModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Confirma Exclusão deste registro?</h3>
+<div>
+    <h4>EPI</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidadeCa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidadeCa)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" title="Excluir o registro (operação definitiva)" /> |
+            @Html.ActionLink("Voltar à Tela de Pesquisa", "Index", null, new { @class = "btn btn-default", title = "Voltar à tela de pesquisa sem excluir o registro." })
+        </div>
+    }
+
+    @if (ViewBag.EstaEmSetor == true)
+    {
+        <script>
+            alert("Este EPI está inserido em um setor. Antes de excluí-lo será necessário retirá-lo do setor onde está incluído.");
+        </script>
+    }
+</div>

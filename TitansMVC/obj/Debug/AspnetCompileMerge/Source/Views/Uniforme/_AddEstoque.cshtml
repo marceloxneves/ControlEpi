@@ -1,0 +1,33 @@
+﻿<div class="modal-dialog" style="width: 300px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Adicionar Estoque</h3>
+        </div>
+
+        <div class="modal-body" style="margin-left: 50px">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.DisplayText("txtProdutoAlmox")
+                        @Html.Hidden("hdIdEstAdd")
+                        @Html.Hidden("hdIdProdAdd")
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Adicionar")
+                    @Html.TextBox("txtAddEst", null, new { @class = "form-control", @onkeypress = "return SomenteNumero(event)", @style = "width:100px" })
+                    <br />
+                    <input id="btnAddItem" class="btn btn-primary" type="button" onclick="adicionarQtde()" value="Incluir" data-dismiss="modal" />
+                    <div class="modal-footer">
+                        <span id="progress" class="text-center" style="display: none;">
+                            <img src="/images/wait.gif" alt="wait" />
+                            Wait..
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

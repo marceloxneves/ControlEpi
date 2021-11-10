@@ -1,0 +1,49 @@
+﻿@using TitansMVC.Models.Relatorios
+@model IEnumerable<RelConsumoEpiModel>
+
+@{
+    ViewBag.Title = "VisualizarRelConsumoEpi";
+}
+
+<h2>Visualização de Consulta</h2>
+
+<div class="modal-body">
+    @{
+        ConsumoEpiFilter filtro = ViewBag.FiltroEpi ?? new ConsumoEpiFilter() ;
+    }
+    @Html.Hidden("hdUnidadeNegocio", filtro.UnidadeNegocioId)
+    @Html.Hidden("hdColaborador", filtro.ColaboradorId)
+    @Html.Hidden("hdTipoEpi", filtro.TipoEpiId)
+    @Html.Hidden("hdEpi", filtro.EpiId)
+    @Html.Hidden("hdMarca", filtro.Marca)
+    @Html.Hidden("hdSetor", filtro.SetorId)
+    @Html.Hidden("hdCentroCusto", filtro.CentroCustoId)
+    @Html.Hidden("hdDataInicial", filtro.DataInicial)
+    @Html.Hidden("hdDataFinal", filtro.DataFinal)
+
+    @Html.Partial("_GridRelConsumoEpi", Model)
+</div>
+
+<br/>
+
+<div>
+    @Html.ActionLink("Voltar à Tela de Consulta", "ConsumoEpiViewer")
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastros/relEpiCol")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InicializarComponentesRelEpiColaborador();
+    });
+
+    function gerarRelatorio() {
+        location.href = '@Url.Action("DownloadReportConsumoEpi", "Report")?filtro=' + getEpiColFilterImpressao();
+    }
+
+    function gerarRelatorioExcel() {
+        location.href = '@Url.Action("ExportToExcelConsumo", "Report")?filtro=' + getEpiColFilterImpressao();
+    }
+</script>

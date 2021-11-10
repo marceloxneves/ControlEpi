@@ -1,0 +1,23 @@
+﻿@using TitansMVC.Models
+@using TitansMVC.Models.Relatorios
+
+<div class="modal-dialog" style="width: 1200px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">Visualização Uniforme x Colaborador</h3>
+        </div>
+
+        <div class="modal-body">
+            <div id="uniformesColaboradoresPesquisados">
+                @{ var uniformesColRel = new List<RelUniformeColModel>();}
+                @Html.Partial("_GridRelUniformeColaboradores", uniformesColRel)
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            
+            <button class="btn btn-warning" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<TitansMVC.Models.Relatorios.RelEpiColModel>
+
+@if (Model != null && Model.Any())
+{
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <tr>
+                <th class="colHideSmart" width="30%">
+                    @Html.DisplayNameFor(model => model.nome_colaborador)
+                </th>
+                <th width="30%">
+                    @Html.DisplayNameFor(model => model.nome_epi)
+                </th>
+                <th width="9%">
+                    @Html.DisplayNameFor(model => model.qtde_epis)
+                </th>
+                <th class="colHideSmart" width="13%">
+                    @Html.DisplayNameFor(model => model.data_entrega)
+                </th>
+                <th width="9%">
+                    @Html.DisplayNameFor(model => model.epi_ca)
+                </th>               
+                <th class="colHideSmart" width="9%">
+                    @Html.DisplayNameFor(model => model.possui_biometria)                 
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="colHideSmart">
+                        @Html.DisplayFor(modelItem => item.nome_colaborador)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nome_epi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.qtde_epis)
+                    </td>
+                    <td class="colHideSmart">
+                        @Html.DisplayFor(modelItem => item.data_entrega)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.epi_ca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.possui_biometria)
+                    </td>
+                    @*@if (Model.Any(model => model.baixado))
+                    {
+                        <td class="colHideSmart">
+                            @Html.DisplayFor(modelItem => item.data_hora_baixa)
+                        </td>
+                    }*@
+                    @*<td class="colHideSmart">
+                        @if (item.assinatura_colaborador != null)
+                        {
+                            <div style="border: solid 1px #999; background: white; padding: 10px; display: table;">
+                                <img id="assinaturaColaborador" src="~/AssinaturaEntrega?id=@item.id_colaborador_epi" alt="assinatura" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="border: solid 1px #999; background: white; padding: 10px; display: table;">
+                                <img id="assinaturaColaborador" src="" alt="assinatura" />
+                            </div>
+                        }
+                    </td>*@
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <span>Nenhum Resultado para o Registro Pesquisado</span>
+}
+
+@if (Model != null && Model.Any())
+{
+
+    var Modelo = JsonConvert.SerializeObject(Model);
+
+    <a id="btnImprimir" data-toggle="modal" @*href="@Url.Action("GerarRelEpiColaborador")"*@
+       onclick="gerarRelatorio()"
+       title="Gerar Impressão">
+        <span class="btn btn-primary" aria-hidden="true">Imprimir Relatório</span>
+    </a>
+}
+
